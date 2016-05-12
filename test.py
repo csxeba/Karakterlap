@@ -1,9 +1,8 @@
-import data.frame_kepzettsegek
+from tkinter import *
+
 import data.frame_szemelyes
 import data.globz as globz
 import data.karakter as kar
-import data.resource as RES
-from tkinter import *
 
 tk = Tk()
 globz.kar = kar.Karakter(tk)
@@ -14,17 +13,17 @@ globz.kar.update()
 print("update done")
 
 tk.frame = data.frame_kepzettsegek.Frame_kepzettsegek(tk)
-#tk.frame = data.frame_szemelyes.Frame_szemelyes(tk)
+# tk.frame = data.frame_szemelyes.Frame_szemelyes(tk)
 
 
 tk.frame.pack()
 
 ##counter = 0
 ##kihagyva = 0
-##for kaszt in RES.kasztok:
+##for kaszt in res.kasztok:
 ##    if kaszt in ("Fejvadász", "Tolvaj"):
 ##        continue
-##    for iskola in RES.iskolak[kaszt]:
+##    for iskola in res.iskolak[kaszt]:
 ##        print(kaszt, "/", iskola)
 ##        counter += 1
 ##        globz.kar = kar.Karakter(tk)
@@ -34,8 +33,8 @@ tk.frame.pack()
 ##        globz.kar.update("Személyes")
 ##
 ##for kaszt in ("Fejvadász", "Tolvaj"):
-##    for iskola in RES.iskolak[kaszt]:
-##        for altip in RES.kaszt_altipusok[kaszt]:
+##    for iskola in res.iskolak[kaszt]:
+##        for altip in res.kaszt_altipusok[kaszt]:
 ##            print(kaszt, "/", iskola, "/", altip)
 ##            counter += 1
 ##            globz.kar = kar.Karakter(tk)

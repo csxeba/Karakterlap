@@ -1,4 +1,4 @@
 modeflag = None
-rootwin  = None
+rootwin = None
 kar = None
 fegyverek = {}

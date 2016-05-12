@@ -1,6 +1,5 @@
 """Inicializáló fő script"""
 from tkinter import *
-import tkinter.messagebox as tkmb
 
 import data.resource as RES
 
@@ -9,16 +8,16 @@ class Fegyver(Frame):
     def __init__(self, master, tipus, nev):
         Frame.__init__(self, master)
         kar = self.master
-        #Ez egy tuple:(méretkat.,időig.,Sp,KÉ,TÉ/CÉ,VÉ,ár,Lefegyverzés,Fegyvertörés,Átütés)
+        # Ez egy tuple:(méretkat.,időig.,Sp,KÉ,TÉ/CÉ,VÉ,ár,Lefegyverzés,Fegyvertörés,Átütés)
         res = RES.fegyverek[tipus][nev]
         self.nev = StringVar(value=nev)
-        self.meretkategoria = StringVar(value = res[0])
+        self.meretkategoria = StringVar(value=res[0])
         self.idoigeny = IntVar(value=res[1])
         self.sp = StringVar(value=res[2])
         self.mods = {}
         self.ossz = {}
         n = 3
-        for c in RES.harcertekek_resource:#(KÉ,TÉ,VÉ)
+        for c in RES.harcertekek_resource:  # (KÉ,TÉ,VÉ)
             self.mods[c] = IntVar(value=res[n])
             self.ossz[c] = IntVar(value=0)
             n += 1
@@ -32,9 +31,10 @@ class Fegyver(Frame):
 
         self.suly = DoubleVar(value=res[6])
         self.ar = StringVar(value=res[7])
-        
+
         self.lefegyverzes, self.fegyvertores, self.atutes \
-        = BooleanVar(value=res[8]), BooleanVar(value=res[9]), BooleanVar(value=res[10])
+            = BooleanVar(value=res[8]), BooleanVar(value=res[9]), BooleanVar(value=res[10])
+
 
 class Kepzettseg(Frame):
     def __init__(self, master, nev, tipus, neh, kov_k, kov_t):
@@ -56,11 +56,11 @@ class Kepzettseg(Frame):
         self.min_szint = 1
 
         self.kp_alap = {0: 0,
-                        1: (1,1,2,3)[neh-1],
-                        2: (3,5,8,10)[neh-1],
-                        3: (8,10,15,20)[neh-1],
-                        4: (15,20,30,35)[neh-1],
-                        5: (25,30,45,55)[neh-1]}
+                        1: (1, 1, 2, 3)[neh - 1],
+                        2: (3, 5, 8, 10)[neh - 1],
+                        3: (8, 10, 15, 20)[neh - 1],
+                        4: (15, 20, 30, 35)[neh - 1],
+                        5: (25, 30, 45, 55)[neh - 1]}
 
         self.kp_szuks = dict(zip(self.kp_alap.keys(), [IntVar() for _ in range(6)]))
 
@@ -70,9 +70,9 @@ class Kepzettseg(Frame):
         self.kp_rakoltott = 0
 
         if self.osszetett and (
-            "USERDEF" in RES.kepzettseg_alcsoportok[self.nev.get()]):
+                    "USERDEF" in RES.kepzettseg_alcsoportok[self.nev.get()]):
             self.userdef = True
-            
+
         if self.nev in RES.specializalhato_kepzettsegek:
             self.max_szint = 2
         elif "specializáció" in self.nev.get():
@@ -80,7 +80,7 @@ class Kepzettseg(Frame):
 
     def alcsoportok(self, spec):
         if not self.osszetett:
-            raise RuntimeError("Ez a képzettség nem összetett:"+self.nev.get())
+            raise RuntimeError("Ez a képzettség nem összetett:" + self.nev.get())
 
         res = RES.kepzettseg_alcsoportok[nev[1:]]
         # A SPECIFY flag esetén a választható alcsoportok az "anyaképzettségtől"
@@ -97,20 +97,21 @@ class Kepzettseg(Frame):
     def calc_kp(self, fok_cel):
         if self.nehezseg.get() == 0:
             return self.szazalekos(fok_cel)
-        
+
         fok_akt = self.fok.get()
-        
+
         if fok_akt >= fok_cel:
             return ""
-        
-        if self.kovetelmeny_k: # ha van képzettség-követelmény
-            if self.kovetelmeny_k[0]: # ha van erős képzettség-követelmény
+
+        if self.kovetelmeny_k:  # ha van képzettség-követelmény
+            if self.kovetelmeny_k[0]:  # ha van erős képzettség-követelmény
                 if (not self.master.kepzettsegek[self.kovetelmeny_k[0]]) or \
-                   self.master.kepzettsegek[self.kovetelmeny_k[0]].fok.get() <= fok_akt:#kisebb a szintje az erős köv-nél.
+                                self.master.kepzettsegek[
+                                    self.kovetelmeny_k[0]].fok.get() <= fok_akt:  # kisebb a szintje az erős köv-nél.
                     return "Nem felvehető"
-                
+
             if (self.kovetelmeny_k[1]) and \
-               (self.master.kepzettsegek[self.kovetelmeny_k[1]].fok.get() < fok_akt):
+                    (self.master.kepzettsegek[self.kovetelmeny_k[1]].fok.get() < fok_akt):
                 # Ezek a gyenge képzettség-követelmények.
                 return "Nem felvehető"
 
@@ -124,7 +125,7 @@ class Kepzettseg(Frame):
         else:
             kp = alap
         plusz = 0
-        if self.kovetelmeny_t: # Ez a tulajdonság-követelmények miatti pluszpontokat számolja ki
+        if self.kovetelmeny_t:  # Ez a tulajdonság-követelmények miatti pluszpontokat számolja ki
             for c in self.kovetelmeny_t:
                 tul = self.master.fo_tulajdonsagok[c].get()
                 x = 10 + fok_cel - tul
@@ -133,12 +134,12 @@ class Kepzettseg(Frame):
 
         okt = 0
         okt_fok = self.oktatas_fok.get()
-        if okt_fok >= fok_cel: # Ez az oktatás bónuszból fakadó levonást számolja ki
-            okt = {1:1, 2:1, 3:1, 4:2, 5:3}[okt_fok]
+        if okt_fok >= fok_cel:  # Ez az oktatás bónuszból fakadó levonást számolja ki
+            okt = {1: 1, 2: 1, 3: 1, 4: 2, 5: 3}[okt_fok]
 
-        kp = alap + plusz - okt # okt pozitív!
+        kp = alap + plusz - okt  # okt pozitív!
         if kp <= 0:
-            kp = 1 # A Kp költség minimum 1.
+            kp = 1  # A Kp költség minimum 1.
 
         return kp
 

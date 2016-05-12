@@ -1,9 +1,10 @@
-from tkinter import *
 import tkinter.messagebox as tkmb
-import data.resource as RES
+from tkinter import *
+
 import data.globz as globz
-import data.update as update
 import data.hasznos as hasznos
+import data.resource as RES
+import data.update as update
 
 
 class FoTul_beallitas(Frame):
@@ -11,10 +12,10 @@ class FoTul_beallitas(Frame):
         Frame.__init__(self, master, **kw)
 
         bw, rel = 10, RAISED
-        
-        FoTul_fejlec(self,     bd=bw, relief=rel).pack()
-        FoTul_mainframe(self,  bd=bw, relief=rel).pack()
-        FoTul_lablec(self,     bd=bw, relief=rel).pack()
+
+        FoTul_fejlec(self, bd=bw, relief=rel).pack()
+        FoTul_mainframe(self, bd=bw, relief=rel).pack()
+        FoTul_lablec(self, bd=bw, relief=rel).pack()
 
     def check(self):
         if globz.kar.foTul_eloszthato.get() == 0:
@@ -28,26 +29,28 @@ class FoTul_beallitas(Frame):
         eloszthato = globz.kar.foTul_eloszthato.get()
 
         if eloszthato <= 0:
-            for _ in range(5-eloszthato):
+            for _ in range(5 - eloszthato):
                 tul = random.choice(list(globz.kar.fo_tulajdonsagok.values()))
                 hasznos.mod_IntVar(tul, -1)
             update.foTul(globz.kar)
-        
+
         for _ in range(globz.kar.foTul_eloszthato.get()):
             tul = random.choice(list(globz.kar.fo_tulajdonsagok.values()))
             hasznos.mod_IntVar(tul, 1)
 
         update.foTul(globz.kar)
 
+
 class FoTul_fejlec(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
         # Elrendezés: [fejléc] + [alul 2 hasáb]
-        mww = 51 # Főablak szélessége
+        mww = 51  # Főablak szélessége
 
         # A cím Label
         Label(self, width=mww, font=("Courier", 16),
               text="A Karakter Fő tulajdonságainak beállítása").pack()
+
 
 class FoTul_mainframe(Frame):
     def __init__(self, master, **kw):
@@ -57,23 +60,23 @@ class FoTul_mainframe(Frame):
 
         main_container = Frame(self)
         main_container.pack()
-        
+
         left_container = Frame(main_container)
         left_container.pack(side=LEFT)
 
-        right_container= Frame(main_container)
+        right_container = Frame(main_container)
         right_container.pack(side=LEFT)
 
         bw = 3
         for chain, container in zip(("Fizikai", "Szellemi"),
                                     (left_container, right_container)):
-            
+
             Label(container, width=36, font=12, bd=bw, relief=RAISED,
                   text=chain + " tulajdonságok"
                   ).pack()
             namesf = Frame(container, bd=bw, relief=RIDGE)
             namesf.pack(fill=X)
-            
+
             for col, colname in enumerate(('Tul.', 'Faji', 'Mód', 'Alap', 'Csúszka')):
                 w = 4
                 if colname == 'Csúszka': w = 12
@@ -84,7 +87,6 @@ class FoTul_mainframe(Frame):
                       ).grid(row=0, column=col)
             w, h = 4, 1
             for rw, tul in enumerate(RES.tulajdonsagok[chain]):
-
                 f = Frame(container, bd=bw, relief=RIDGE)
                 f.pack()
                 # Erre a button-ra be lehetne kötni valamiféle súgó funkciót
@@ -103,10 +105,11 @@ class FoTul_mainframe(Frame):
                       ).pack(side=LEFT)
                 Scale(f, width=13, length=120, orient=HORIZONTAL,
                       bd=2, relief=RAISED, showvalue=0,
-                      from_=5, to=18+int(kar.fo_tulajdonsagok_faji[tul].get()),
+                      from_=5, to=18 + int(kar.fo_tulajdonsagok_faji[tul].get()),
                       variable=kar.fo_tulajdonsagok[tul],
                       command=lambda x: update.foTul(kar)
                       ).pack(side=LEFT, padx=1)
+
 
 class FoTul_lablec(Frame):
     def __init__(self, master, **kw):
@@ -150,6 +153,7 @@ class FoTul_lablec(Frame):
 
 if __name__ == "__main__":
     import karakter
+
     root = Tk()
     globz.kar = karakter.Karakter(root)
     update.full(globz.kar)

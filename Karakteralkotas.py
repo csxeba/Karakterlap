@@ -34,6 +34,9 @@ class Root(Tk):
     def __init__(self):
         Tk.__init__(self)
         self.title("M.A.G.U.S. karakteralkotás - Új Törvénykönyv szabályrendszerben")
+
+        self.step = steps[0]
+
         globz.kar = Karakter(self)
         update.kornyezet_inicializalasa(globz.kar)
         globz.kar.fegyverek.append(globz.fegyverek["Slan kard"])
@@ -47,7 +50,7 @@ class Root(Tk):
         self.mainf.pack(fill=BOTH)
         ##################
 
-        self.frame = frame_szotar[step](self.mainf)
+        self.frame = frame_szotar[self.step](self.mainf)
         self.frame.grid(row=0, column=0, sticky=E + W)
         # Alsó Frame (gombokat tartalmazza)
         buttonsf = Frame(self.mainf)
@@ -57,7 +60,7 @@ class Root(Tk):
         # Előző gomb
         self.prev = Button(buttonsf, width=12, height=2, bd=5, state=DISABLED,
                            text="Vissza", font=12,
-                           command=lambda: lepes(-1))
+                           command=lambda: self.lepes(-1))
         self.prev.pack(side=LEFT)
         #################
 
@@ -75,44 +78,40 @@ class Root(Tk):
         # Következő gomb
         self.next = Button(buttonsf, height=2, bd=5, width=12,
                            text="Következő", font=12,
-                           command=lambda: lepes(1))
+                           command=lambda: self.lepes(1))
         self.next.pack(side=LEFT)
         ##############
 
         # Random gomb (csak debug esetén)
         Button(self, text="Hail Mary", font=14, bd=5,
-               command=lambda: hail_mary(step)).pack(fill=X)
+               command=self.hail_mary).pack(fill=X)
 
         # Néhány állandó beállítása
         globz.rootwin = self
 
+    def lepes(self, hova):
+        if hova == 1:
+            if not self.frame.check():
+                tkmb.showerror("Figyelem", "Hiányos adatkitöltés!")
+                return
 
-def lepes(hova):
-    global step
+        volt = steps.index(self.step)
+        self.step = steps[volt + hova]
+        lett = volt + hova
 
-    if hova == 1:
-        if not root.frame.check():
-            tkmb.showerror("Figyelem", "Hiányos adatkitöltés!")
-            return
+        update.full(globz.kar)
 
-    volt = steps.index(step)
-    step = steps[volt + hova]
-    lett = volt + hova
+        self.frame.destroy()
+        self.frame = frame_szotar[self.step](self.mainf)
+        self.frame.grid(row=0, column=0)
 
-    update.full(globz.kar)
+        self.prev.configure(state=(ACTIVE if lett else DISABLED))
 
-    root.frame.destroy()
-    root.frame = frame_szotar[step](root.mainf)
-    root.frame.grid(row=0, column=0)
-
-    root.prev.configure(state={True: DISABLED, False: ACTIVE}[lett == 0])
-
-
-def hail_mary(step):
-    root.frame.randomize()
+    def hail_mary(self):
+        self.frame.randomize()
 
 
-globz.modeflag = "karakteralkotás"
-step = steps[0]
-root = Root()
-root.mainloop()
+if __name__ == '__main__':
+    globz.modeflag = "karakteralkotás"
+    root = Root()
+    root.mainloop()

@@ -2,34 +2,35 @@
 """Karakter osztály: Frame-ből leszármaztatva, így csatolhatok hozzá Tkinter
 IntVar és StringVar objektumokat, de nem lesz 'mainloop'-olva."""
 from tkinter import *
-import tkinter.messagebox as tkmb
+
 import data.hasznos as hasznos
+import data.objektumok as objektumok
 import data.resource as RES
 import data.update as update
-import data.objektumok as objektumok
+
 
 class Karakter(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        #A KARAKTER SZEMÉLYES ADATAI (Név, kaszt, jellem, stb)
-        self.nev = StringVar(value = '')
-        self.szint = IntVar(value = 1)
+        # A KARAKTER SZEMÉLYES ADATAI (Név, kaszt, jellem, stb)
+        self.nev = StringVar(value='')
+        self.szint = IntVar(value=1)
         self.KAP_szintenkent = 50
-        self.KAP = IntVar(value = self.KAP_szintenkent)
-        self.TP = IntVar(value = 0)
-       
+        self.KAP = IntVar(value=self.KAP_szintenkent)
+        self.TP = IntVar(value=0)
+
         self.szemelyes_adatok = {}
         for c in RES.szemelyes_adat_nevek:
-            self.szemelyes_adatok[c] = StringVar(value = ' ')
-        
+            self.szemelyes_adatok[c] = StringVar(value=' ')
+
         self.hatterek = {}
         for c in hasznos.get_sorted_list(RES.hatterek_resource):
-            self.hatterek[c] = StringVar(value = '0')
+            self.hatterek[c] = StringVar(value='0')
 
         self.faji_bonuszok = None
 
-        #A KARAKTER FŐ TULAJDONSÁGAI (ERŐ, ÜGY, stb)
+        # A KARAKTER FŐ TULAJDONSÁGAI (ERŐ, ÜGY, stb)
         self.fo_tulajdonsagok = {}
         self.fo_tulajdonsagok_faji = {}
         self.fo_tulajdonsag_mod = {}
@@ -45,12 +46,12 @@ class Karakter(Frame):
         self.fp_max = IntVar(value=0)
         self.ep_akt = IntVar(value=0)
         self.fp_akt = IntVar(value=0)
-        self.fp_KAP = IntVar(value=0) # Fp-re költött KAP-ok száma
+        self.fp_KAP = IntVar(value=0)  # Fp-re költött KAP-ok száma
 
         # Képzettség pontok
-        self.kp_KAP =   IntVar(value=0) # KAP-ból vásárolt képzettség pontok
-        self.kp_alap =  IntVar(value=0) # intelligenciából származó képzettség pontok
-        self.kp =       IntVar(value=0) # elosztható képzettség pontok
+        self.kp_KAP = IntVar(value=0)  # KAP-ból vásárolt képzettség pontok
+        self.kp_alap = IntVar(value=0)  # intelligenciából származó képzettség pontok
+        self.kp = IntVar(value=0)  # elosztható képzettség pontok
         self.kp_elkoltott = IntVar(value=0)
 
         self.kepzettsegek = {}
@@ -58,7 +59,7 @@ class Karakter(Frame):
             for nev, d in RES.kepzettsegek[tipus].items():
                 if nev[0] == "!": nev = nev[1:]
                 self.kepzettsegek[nev] = \
-                    objektumok.Kepzettseg(self,nev,tipus,d[0],d[1],d[2])
+                    objektumok.Kepzettseg(self, nev, tipus, d[0], d[1], d[2])
 
         # Pszi és mágia iskola és használat foka
         self.pszi_iskola = StringVar(value=' ')
@@ -81,15 +82,15 @@ class Karakter(Frame):
         self.harcertekek_alap = {}
         self.harcertekek_KAP = {}
         for c in RES.harcertekek_resource:
-            self.harcertekek_KAP[c] = IntVar(value = 0)
-            self.harcertekek_alap[c] = IntVar(value = 0)
-        self.sebzes = StringVar(value = '1k3') #Ideglenessen
+            self.harcertekek_KAP[c] = IntVar(value=0)
+            self.harcertekek_alap[c] = IntVar(value=0)
+        self.sebzes = StringVar(value='1k3')  # Ideglenessen
         self.sebzes_bonusz = 0
 
-        #FEGYVEREK
+        # FEGYVEREK
         self.fegyverek = []
 
-        #VÉRTEK és PAJZSOK
+        # VÉRTEK és PAJZSOK
         self.vertpajzs_sz = {}
         for c in RES.vertpajzs:
             self.vertpajzs_sz[c] = StringVar(value=" ")
@@ -98,7 +99,7 @@ class Karakter(Frame):
             self.vedett_testtajak[c] = BooleanVar(value=False)
 
         self.magia = Magia(self)
-        #self.pontok = Pontok(self)
+        # self.pontok = Pontok(self)
 
     def update(self):
         self.update_szemelyes()
@@ -128,16 +129,16 @@ class Karakter(Frame):
                 kepz_o.oktatas_fok.set(elony[-1])
 
         ######## 2. KASZT FELDOLGOZÁSA ########
-                
+
         # Aliasgyártás a jobb átláthatóság végett
         kaszt = self.szemelyes_adatok["Kaszt"].get()
-        iskola= self.szemelyes_adatok["Iskola"].get()
+        iskola = self.szemelyes_adatok["Iskola"].get()
         altip = self.szemelyes_adatok["Kaszt altípus"].get()
         hatterek = self.hatterek
 
         # Ha nincs kitöltve teljesen az adatlap -> elvileg ez sosem futhat
-        if ((kaszt or iskola) in ("", " ")) or\
-           ((kaszt == "Fejvadász") and (altip in ("", " "))):
+        if ((kaszt or iskola) in ("", " ")) or \
+                ((kaszt == "Fejvadász") and (altip in ("", " "))):
             raise RuntimeError("Hibás adat! kaszt_update() nem tud így lefutni")
 
         # Kasztból adódó "ingyen" hátterek beállítása
@@ -161,7 +162,7 @@ class Karakter(Frame):
 
         # Ezeknél a kasztoknál nem tér el az induló képzettség iskolánként
         elif kaszt in ("Tolvaj", "Harcművész", "Kardművész",
-                     "Boszorkány", "Tűzvarázsló", "Varázsló"):
+                       "Boszorkány", "Tűzvarázsló", "Varázsló"):
             iskola = kaszt
 
         # Kasztból származó oktatás bónuszok beállítása
@@ -174,7 +175,7 @@ class Karakter(Frame):
         # A kaszt induló képzettségeinek beállítása
         for kep, fok in RES.kaszt_indulo_kepzettsegek[iskola].items():
             self.kepzettsegek[kep].fok.set(fok)
-        
+
         update.full(self)
 
     def update_kepz(self):
@@ -203,11 +204,11 @@ class Karakter(Frame):
         eloszthato = self.foTul_eloszthato.get()
 
         if eloszthato < 0:
-            for _ in range(5-eloszthato):
+            for _ in range(5 - eloszthato):
                 tul = random.choice(list(kar.fo_tulajdonsagok.values()))
                 hasznos.mod_IntVar(tul, -1)
             update.foTul(self)
-        
+
         for _ in range(self.foTul_eloszthato.get()):
             tul = random.choice(list(self.fo_tulajdonsagok.values()))
             hasznos.mod_IntVar(tul, 1)
@@ -219,6 +220,7 @@ class Karakter(Frame):
 
 class Magia:
     "Ez egy információ-konténer"
+
     def __init__(self, master):
         self.kar = master
         self.update()
@@ -226,8 +228,8 @@ class Magia:
     def update(self):
         kaszt = self.kar.szemelyes_adatok["Kaszt"].get()
         self.magiahasznalo = kaszt in RES.magiahasznalok
-        self.varazshasznalo = self.magiahasznalo # csak mert össze-vissza használom
-        self.aktiv = self.kar.kepzettsegek["Tapasztalati mágia"].fok.get() >= 3 or\
+        self.varazshasznalo = self.magiahasznalo  # csak mert össze-vissza használom
+        self.aktiv = self.kar.kepzettsegek["Tapasztalati mágia"].fok.get() >= 3 or \
                      self.kar.kepzettsegek["Magas mágia"].fok.get() >= 3
         self.tapasztalati = kaszt in RES.tapasztalati_magiaformak
 
@@ -240,6 +242,7 @@ class Magia:
         else:
             self.forma = None
             self.kepzettseg = self.kar.kepzettsegek["Tapasztalati mágia"]
+
 
 ##class Pontok(dict):
 ##    #TODO: befejezni az update metódust és implementálni a bonusz_elkoltott
@@ -255,18 +258,18 @@ class Magia:
 ##        self.reset()
 ##
 ##    def reset(self):
-##        for pont in RES.pontok:
+##        for pont in res.pontok:
 ##            self[pont] = IntVar()
 ##        self.bonuszok_szintek = \
 ##            {pont: {i: 0 for i in range(1, 4)}
-##             for pont in RES.pontok}
+##             for pont in res.pontok}
 ##        self.bonusz_elkoltott = \
 ##            {pont: {i: 0 for i in range(1, 4)}
-##             for pont in RES.pontok}
+##             for pont in res.pontok}
 ##
 ##        self.bonusz_kepzettsegek = \
-##            {pont: RES.bonusz_mitmihez[pont]
-##             for pont in RES.pontok
+##            {pont: res.bonusz_mitmihez[pont]
+##             for pont in res.pontok
 ##             if pont != "mana"}
 ##
 ##        self.kar.magia.update()
@@ -275,9 +278,9 @@ class Magia:
 ##             self.kar.hatterek["Mágikus fogékonyság"])
 ##        
 ##        self.KAP = \
-##            {pont: 0 for pont in RES.pontok}
+##            {pont: 0 for pont in res.pontok}
 ##        self.alap =
-##            {pont: 0 for pont in RES.pontok}
+##            {pont: 0 for pont in res.pontok}
 ##        self.update()
 ##
 ##    def bonusz_ossz(self, pont):
@@ -298,7 +301,7 @@ class Magia:
 ##        return max_bonusz - elkoltott
 ##
 ##    def KAP_novekmeny(self, pont):
-##        return int(self.KAP[pont] / RES.pont_KAP_szorzok[pont])
+##        return int(self.KAP[pont] / res.pont_KAP_szorzok[pont])
 ##
 ##    def max_pont(self, pont):
 ##        return self.bonusz_novekmeny(pont) +\
@@ -319,19 +322,19 @@ class Magia:
 ##
 ##    def update_pont(self):
 ##        kar = self.kar
-##        for pont in RES.pontok:
+##        for pont in res.pontok:
 ##            self[pont].set(self.max_pont(pont))
 ##
 ##    def noveles(self, pont, mertek, flag_KAP=False):
-##        szorzo = RES.pont_KAP_szorzok[pont]
-        
-        
-            
-            
-        
+##        szorzo = res.pont_KAP_szorzok[pont]
+
+
+
+
+
 
 if __name__ == '__main__':
     import globz
+
     root = Tk()
     globz.kar = Karakter(root)
-    
