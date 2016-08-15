@@ -1,7 +1,4 @@
 # -*- coding: Utf-8 -*-
-# default package import
-
-# app package import
 from data.frame_foTul_kijelzo import *
 from data.frame_harcertekek import *
 from data.frame_kepzettsegek import *
@@ -21,7 +18,6 @@ class KarakterlapAblak(Tk):
         self.title("M.A.G.U.S. karakterlap - Új Törvénykönyv alapján")
 
         # A frame_top tartalma: 3 további részre tagolódik vízszintesen.
-        h, w, bw = 325, 300, 3
         fotul = Frame_foTul_kijelzo(self)
         fotul.grid(row=0, column=0)
         szemelyes = Frame_szemelyes(self)
@@ -33,7 +29,7 @@ class KarakterlapAblak(Tk):
         self.buttons = {}
         for c in ("Harcértékek", "Képzettségek", "Pszi-Mágia"):
             self.buttons[c] = Button(frame_mid, width=24, height=3,
-                                     text=c, font=(14), bd=5,
+                                     text=c, font=14, bd=5,
                                      command=lambda arg=c: self.init_tl(arg))
             self.buttons[c].pack(side=LEFT)
 

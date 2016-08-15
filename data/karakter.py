@@ -3,10 +3,7 @@
 IntVar és StringVar objektumokat, de nem lesz 'mainloop'-olva."""
 from tkinter import *
 
-import data.hasznos as hasznos
-import data.objektumok as objektumok
-import data.resource as RES
-import data.update as update
+from data import hasznos, objektumok, resource, update
 
 
 class Karakter(Frame):
@@ -21,11 +18,11 @@ class Karakter(Frame):
         self.TP = IntVar(value=0)
 
         self.szemelyes_adatok = {}
-        for c in RES.szemelyes_adat_nevek:
+        for c in resource.szemelyes_adat_nevek:
             self.szemelyes_adatok[c] = StringVar(value=' ')
 
         self.hatterek = {}
-        for c in hasznos.get_sorted_list(RES.hatterek_resource):
+        for c in hasznos.get_sorted_list(resource.hatterek_resource):
             self.hatterek[c] = StringVar(value='0')
 
         self.faji_bonuszok = None
@@ -34,7 +31,7 @@ class Karakter(Frame):
         self.fo_tulajdonsagok = {}
         self.fo_tulajdonsagok_faji = {}
         self.fo_tulajdonsag_mod = {}
-        for c in RES.fo_tulajdonsag_nevek:
+        for c in resource.fo_tulajdonsag_nevek:
             self.fo_tulajdonsagok[c] = IntVar(value=13)
             self.fo_tulajdonsagok_faji[c] = IntVar(value=0)
             self.fo_tulajdonsag_mod[c] = IntVar(value=0)
@@ -55,9 +52,10 @@ class Karakter(Frame):
         self.kp_elkoltott = IntVar(value=0)
 
         self.kepzettsegek = {}
-        for tipus in RES.kepzettsegek:
-            for nev, d in RES.kepzettsegek[tipus].items():
-                if nev[0] == "!": nev = nev[1:]
+        for tipus in resource.kepzettsegek:
+            for nev, d in resource.kepzettsegek[tipus].items():
+                if nev[0] == "!":
+                    nev = nev[1:]
                 self.kepzettsegek[nev] = \
                     objektumok.Kepzettseg(self, nev, tipus, d[0], d[1], d[2])
 
@@ -81,7 +79,7 @@ class Karakter(Frame):
         # Harcértékek
         self.harcertekek_alap = {}
         self.harcertekek_KAP = {}
-        for c in RES.harcertekek_resource:
+        for c in resource.harcertekek_resource:
             self.harcertekek_KAP[c] = IntVar(value=0)
             self.harcertekek_alap[c] = IntVar(value=0)
         self.sebzes = StringVar(value='1k3')  # Ideglenessen
@@ -92,10 +90,10 @@ class Karakter(Frame):
 
         # VÉRTEK és PAJZSOK
         self.vertpajzs_sz = {}
-        for c in RES.vertpajzs:
+        for c in resource.vertpajzs:
             self.vertpajzs_sz[c] = StringVar(value=" ")
         self.vedett_testtajak = {}
-        for c in RES.vedett_testtajak:
+        for c in resource.vedett_testtajak:
             self.vedett_testtajak[c] = BooleanVar(value=False)
 
         self.magia = Magia(self)
@@ -106,7 +104,7 @@ class Karakter(Frame):
         self.update_kepz()
 
     def update_szemelyes(self):
-        ######## 1. FAJ FELDOLGOZÁSA ########
+        # 1. FAJ FELDOLGOZÁSA #
 
         faj = self.szemelyes_adatok["Faj"].get()
 
@@ -119,7 +117,7 @@ class Karakter(Frame):
             self.hatterek["Faj"].set("1")
 
         # Bizonyos fajok könnyebben tanulnak bizonyos képzettségeket
-        elony = RES.faji_kepzettseg_elonyok[faj]
+        elony = resource.faji_kepzettseg_elonyok[faj]
         for kepz in elony[:-1]:
             if kepz[0] == "!":
                 kepz = kepz[1:]
@@ -128,7 +126,7 @@ class Karakter(Frame):
             if kepz_o.oktatas_fok.get() < elony[-1]:
                 kepz_o.oktatas_fok.set(elony[-1])
 
-        ######## 2. KASZT FELDOLGOZÁSA ########
+        # 2. KASZT FELDOLGOZÁSA #
 
         # Aliasgyártás a jobb átláthatóság végett
         kaszt = self.szemelyes_adatok["Kaszt"].get()
@@ -145,7 +143,7 @@ class Karakter(Frame):
         if kaszt in ('Harcművész', 'Kardművész', 'Fejvadász', 'Boszorkány',
                      'Boszorkánymester', 'Tűzvarázsló', 'Varázsló'):
             hatterek['Pszi érzékenység'].set(' ')
-        elif kaszt in RES.magiahasznalok:
+        elif kaszt in resource.magiahasznalok:
             hatterek['Mágikus fogékonyság'].set(' ')
         elif kaszt in ('Pap', 'Paplovag'):
             hatterek['Kegyelt'].set(' ')
@@ -157,7 +155,7 @@ class Karakter(Frame):
             iskola = "Egyéb " + kaszt.lower()
 
         # A fejvadász és a tolvaj még kaszt-altípussal is meg van bonyolítva
-        if kaszt in ("Fejvadász"):
+        if kaszt == "Fejvadász":
             iskola = kaszt.capitalize() + " (" + altip.lower() + ")"
 
         # Ezeknél a kasztoknál nem tér el az induló képzettség iskolánként
@@ -166,14 +164,14 @@ class Karakter(Frame):
             iskola = kaszt
 
         # Kasztból származó oktatás bónuszok beállítása
-        for kep in RES.oktatas_bonuszok[iskola]:
+        for kep in resource.oktatas_bonuszok[iskola]:
             self.kepzettsegek[kep].oktatas_fok.set(4)
 
         if kaszt == "Tolvaj":
             iskola = kaszt + " (" + altip.lower() + ")"
 
         # A kaszt induló képzettségeinek beállítása
-        for kep, fok in RES.kaszt_indulo_kepzettsegek[iskola].items():
+        for kep, fok in resource.kaszt_indulo_kepzettsegek[iskola].items():
             self.kepzettsegek[kep].fok.set(fok)
 
         update.full(self)
@@ -187,15 +185,16 @@ class Karakter(Frame):
         import random
         kar = self
         kar.nev.set("Hail Mary")
-        for adat_nev in RES.szemelyes_adat_nevek:
-            if adat_nev in ("Iskola", "Kaszt altípus", "Isten", "Ország"): continue
-            kar.szemelyes_adatok[adat_nev].set(random.choice(RES.szemelyes_adat_sz[adat_nev]))
+        for adat_nev in resource.szemelyes_adat_nevek:
+            if adat_nev in ("Iskola", "Kaszt altípus", "Isten", "Ország"):
+                continue
+            kar.szemelyes_adatok[adat_nev].set(random.choice(resource.szemelyes_adat_sz[adat_nev]))
         update.szemelyes_forrasok(kar)
         osszetett = ("Iskola", "Isten", "Ország")
         for adat_nev in osszetett:
-            kar.szemelyes_adatok[adat_nev].set(random.choice(RES.szemelyes_adat_sz[adat_nev]))
+            kar.szemelyes_adatok[adat_nev].set(random.choice(resource.szemelyes_adat_sz[adat_nev]))
         if kar.szemelyes_adatok["Kaszt"].get() in ("Tolvaj", "Fejvadász"):
-            kar.szemelyes_adatok["Kaszt altípus"].set(random.choice(RES.szemelyes_adat_sz["Kaszt altípus"]))
+            kar.szemelyes_adatok["Kaszt altípus"].set(random.choice(resource.szemelyes_adat_sz["Kaszt altípus"]))
         else:
             kar.szemelyes_adatok["Kaszt altípus"].set("Nincs")
 
@@ -219,19 +218,23 @@ class Karakter(Frame):
 
 
 class Magia:
-    "Ez egy információ-konténer"
-
     def __init__(self, master):
         self.kar = master
+        self.magiahasznalo = None
+        self.varazshasznalo = None
+        self.tapasztalati = None
+        self.aktiv = None
+        self.forma = None
+        self.kepzettseg = None
         self.update()
 
     def update(self):
         kaszt = self.kar.szemelyes_adatok["Kaszt"].get()
-        self.magiahasznalo = kaszt in RES.magiahasznalok
+        self.magiahasznalo = kaszt in resource.magiahasznalok
         self.varazshasznalo = self.magiahasznalo  # csak mert össze-vissza használom
-        self.aktiv = self.kar.kepzettsegek["Tapasztalati mágia"].fok.get() >= 3 or \
-                     self.kar.kepzettsegek["Magas mágia"].fok.get() >= 3
-        self.tapasztalati = kaszt in RES.tapasztalati_magiaformak
+        self.aktiv = (self.kar.kepzettsegek["Tapasztalati mágia"].fok.get() >= 3 or
+                      self.kar.kepzettsegek["Magas mágia"].fok.get() >= 3)
+        self.tapasztalati = kaszt in resource.tapasztalati_magiaformak
 
         if self.magiahasznalo:
             self.forma = kaszt
@@ -329,12 +332,8 @@ class Magia:
 ##        szorzo = res.pont_KAP_szorzok[pont]
 
 
-
-
-
-
 if __name__ == '__main__':
-    import globz
+    import data.globz as globz
 
     root = Tk()
     globz.kar = Karakter(root)

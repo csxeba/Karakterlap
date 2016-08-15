@@ -1,7 +1,4 @@
-import data.globz as globz
-import data.hasznos as hasznos
-import data.objektumok as obj
-import data.resource as RES
+from data import globz, hasznos, objektumok, resource
 
 
 def szintlepes(kar, volt, lett):
@@ -10,9 +7,9 @@ def szintlepes(kar, volt, lett):
 
 
 def kornyezet_inicializalasa(kar):
-    for tipus in hasznos.get_sorted_list(RES.fegyverek):
-        for fegyver in RES.fegyverek[tipus]:
-            globz.fegyverek[fegyver] = obj.Fegyver(kar, tipus, fegyver)
+    for tipus in hasznos.get_sorted_list(resource.fegyverek):
+        for fegyver in resource.fegyverek[tipus]:
+            globz.fegyverek[fegyver] = objektumok.Fegyver(kar, tipus, fegyver)
 
 
 def full(kar):
@@ -30,8 +27,8 @@ def szemelyes_forrasok(kar):
     for dep, adat_nev, res in \
             zip(("Iskola", "Kaszt altípus", "Isten", "Ország"),
                 ("Kaszt", "Kaszt", "Vallás", "Szülőföld"),
-                (RES.iskolak, RES.kaszt_altipusok, RES.istenek, RES.orszagok)):
-        RES.szemelyes_adat_sz[dep] = res[kar.szemelyes_adatok[adat_nev].get()]
+                (resource.iskolak, resource.kaszt_altipusok, resource.istenek, resource.orszagok)):
+        resource.szemelyes_adat_sz[dep] = res[kar.szemelyes_adatok[adat_nev].get()]
 
 
 def kp(kar):
@@ -77,7 +74,7 @@ def foTul(kar, melyik=None):
 
     # Faji bónuszok update-je
     if kar.szemelyes_adatok["Faj"].get() not in [" ", ""]:
-        kar.faji_bonuszok = RES.faji_bonuszok[kar.szemelyes_adatok['Faj'].get()]
+        kar.faji_bonuszok = resource.faji_bonuszok[kar.szemelyes_adatok['Faj'].get()]
 
         for kulcs, bonusz in kar.faji_bonuszok.items():
             kar.fo_tulajdonsagok_faji[kulcs].set(bonusz)
@@ -132,7 +129,7 @@ def hm(kar):
         hasznos.mod_IntVar(kar.harcertekek_alap['CÉ'],
                            {"Elf": 10, "Félelf": 5}[faj])
 
-    for d in RES.harcertekek_resource:
+    for d in resource.harcertekek_resource:
         for c in kar.fegyverek:
             if not c: continue
             c.ossz[d].set(kar.harcertekek_alap[d].get() + c.mods[d].get())
