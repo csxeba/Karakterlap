@@ -18,9 +18,9 @@ class KarakterlapAblak(Tk):
         self.title("M.A.G.U.S. karakterlap - Új Törvénykönyv alapján")
 
         # A frame_top tartalma: 3 további részre tagolódik vízszintesen.
-        fotul = Frame_foTul_kijelzo(self)
+        fotul = FrameFoTulKijelzo(self)
         fotul.grid(row=0, column=0)
-        szemelyes = Frame_szemelyes(self)
+        szemelyes = FrameSzemelyes(self)
         szemelyes.grid(row=0, column=1)
 
         frame_mid = Frame(self)
@@ -49,9 +49,9 @@ class KarakterlapAblak(Tk):
             self.buttons[c].configure(relief=RAISED)
             self.buttons[melyik].configure(relief=SUNKEN)
 
-        self.bot_frame = {"Harcértékek": Frame_harcertekek,
-                          "Képzettségek": Frame_kepzettsegek,
-                          "Pszi-Mágia": Frame_pszi_magia,
+        self.bot_frame = {"Harcértékek": FrameHarcertekek,
+                          "Képzettségek": FrameKepzettsegek,
+                          "Pszi-Mágia": FramePsziMagia,
                           }[melyik](self.tl)
         self.bot_frame.pack()
 

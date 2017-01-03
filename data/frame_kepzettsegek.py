@@ -1,14 +1,11 @@
 # -*- coding: Utf-8 -*-
-import tkinter.messagebox as tkmb
 from tkinter import *
+import tkinter.messagebox as tkmb
 
-import data.globz as globz
-import data.hasznos as hasznos
-import data.resource as res
-import data.update as update
+from . import globz, hasznos, resource, update
 
 
-class Frame_kepzettsegek(Frame):
+class FrameKepzettsegek(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
@@ -49,11 +46,11 @@ class Frame_kepzettsegek(Frame):
         self.buttons[tipus].configure(relief=SUNKEN)  # Az új frame gombját benyomjuk
 
         self.aktiv = tipus
-        self.frame = Tipus_Frame(self.fr_Main, tipus, bd=3, relief=RIDGE)
+        self.frame = TipusFrame(self.fr_Main, tipus, bd=3, relief=RIDGE)
         self.frame.pack()
 
 
-class Tipus_Frame(Frame):
+class TipusFrame(Frame):
     def __init__(self, master, tipus, **kw):
         Frame.__init__(self, master, **kw)
         bw = 3
@@ -74,7 +71,7 @@ class Tipus_Frame(Frame):
 
         simak = []
         szazalekosak = []
-        for nev in res.kepzettsegek[tipus].keys():
+        for nev in resource.kepzettsegek[tipus].keys():
             if "specializáció" in nev:
                 continue
             if nev[0] == "!":
@@ -107,15 +104,15 @@ class Tipus_Frame(Frame):
             l.grid(row=rown, column=5)
             l.bind("<Button-1>", self.kepz_beallitas)
 
-        Frame_KAP_Kp(self, bd=3, relief=RAISED, width=20
-                     ).pack()
+        FrameKAPkp(self, bd=3, relief=RAISED, width=20
+                   ).pack()
 
     def kepz_beallitas(self, event):
-        tl = Kepz_toplevel(self, event.widget.var)
+        tl = KepzToplevel(self, event.widget.var)
         tl.grab_set()
 
 
-class Kepz_toplevel(Toplevel):
+class KepzToplevel(Toplevel):
     def __init__(self, master, kepz):
         Toplevel.__init__(self, master)
 
@@ -266,7 +263,7 @@ class Kepz_toplevel(Toplevel):
                        ).grid(row=n - 1, column=1)
 
         # KAP kijelző / Kp vásárló Frame
-        frame_KAP_Kp = Frame_KAP_Kp(self, bd=bw, relief=RAISED)
+        frame_KAP_Kp = FrameKAPkp(self, bd=bw, relief=RAISED)
         frame_KAP_Kp.pack()
 
     @staticmethod
@@ -309,7 +306,7 @@ class Kepz_toplevel(Toplevel):
         return chain
 
 
-class Frame_KAP_Kp(Frame):
+class FrameKAPkp(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
         f = ("Courier", 18)
@@ -346,6 +343,6 @@ if __name__ == '__main__':
     tk = Tk()
     tk.title("Képzettségek")
     globz.kar = karakter.Karakter(tk)
-    fr = Frame_kepzettsegek(tk)
+    fr = FrameKepzettsegek(tk)
     fr.pack()
     tk.mainloop()

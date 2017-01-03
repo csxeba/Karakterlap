@@ -1,22 +1,20 @@
 # -*- coding: Utf-8 -*-
 from tkinter import *
 
-import data.globz as globz
-import data.hasznos as hasznos
-import data.resource as res
-import data.update as update
-from data.bases import FrameBase
+from . import globz, hasznos, resource, update
+from .bases import FrameBase
 
 
-class Frame_harcertekek(FrameBase):
+class FrameHarcertekek(FrameBase):
     def __init__(self, master):
         FrameBase.__init__(self, master, bd=3, relief=RAISED, bg='dark grey')
         self.aktiv = None
 
-        Harcertek_frame(self).pack(side=LEFT)
+        HarcertekFrame(self).pack(side=LEFT)
 
-        VertPajzs_frame(self).pack(side=LEFT)
+        VertPajzsFrame(self).pack(side=LEFT)
 
+    @staticmethod
     def harcertek_noveles(arg):
         """A harcértéket KAP-ből növelő folyamatot levezénylő metódus
 
@@ -45,7 +43,7 @@ class Frame_harcertekek(FrameBase):
         update.hm(globz.kar)
 
 
-class Harcertek_frame(Frame):
+class HarcertekFrame(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
         frame = Frame(self)
@@ -69,7 +67,6 @@ class Harcertek_frame(Frame):
 
             # Ez a lista tartalmazza az egyes harcérték frame-ek widget-jeit.
             frames1 = []
-            w1, w2 = 10, 15
             m = 0
             for d in globz.kar.fegyverek:
                 frames1.append(Frame(frames[-1], bd=bw, relief=RIDGE))
@@ -118,7 +115,7 @@ class Harcertek_frame(Frame):
             n += 1
 
 
-class VertPajzs_frame(Frame):
+class VertPajzsFrame(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
@@ -148,17 +145,7 @@ class VertPajzs_frame(Frame):
         Label(f, text="Védett testtájak", bd=3, relief=RIDGE, width=23, anchor=N
               ).grid(row=0, column=0, columnspan=2)
         n = 1
-        for c in res.vedett_testtajak:
+        for c in resource.vedett_testtajak:
             Label(f, text=c, width=11, anchor=W).grid(row=n, column=0)
             Checkbutton(f, variable=globz.kar.vedett_testtajak[c]).grid(row=n, column=1)
             n += 1
-
-
-if __name__ == '__main__':
-    import data.karakter as karakter
-
-    root = Tk()
-    globz.kar = karakter.Karakter(root)
-    fr = Frame_harcertekek(root)
-    fr.pack()
-    root.mainloop()

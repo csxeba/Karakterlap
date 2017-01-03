@@ -1,21 +1,19 @@
-import tkinter.messagebox as tkmb
 from tkinter import *
-
-import data.globz as globz
-import data.hasznos as hasznos
-import data.resource as RES
-import data.update as update
+from tkinter import messagebox as tkmb
 
 
-class FoTul_beallitas(Frame):
+from . import update, hasznos, globz, resource
+
+
+class FoTulBeallitas(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
 
         bw, rel = 10, RAISED
 
-        FoTul_fejlec(self, bd=bw, relief=rel).pack()
-        FoTul_mainframe(self, bd=bw, relief=rel).pack()
-        FoTul_lablec(self, bd=bw, relief=rel).pack()
+        FoTulFejlec(self, bd=bw, relief=rel).pack()
+        FoTulMainframe(self, bd=bw, relief=rel).pack()
+        FoTulLablec(self, bd=bw, relief=rel).pack()
 
     def check(self):
         if globz.kar.foTul_eloszthato.get() == 0:
@@ -41,7 +39,7 @@ class FoTul_beallitas(Frame):
         update.foTul(globz.kar)
 
 
-class FoTul_fejlec(Frame):
+class FoTulFejlec(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
         # Elrendezés: [fejléc] + [alul 2 hasáb]
@@ -52,7 +50,7 @@ class FoTul_fejlec(Frame):
               text="A Karakter Fő tulajdonságainak beállítása").pack()
 
 
-class FoTul_mainframe(Frame):
+class FoTulMainframe(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
 
@@ -86,7 +84,7 @@ class FoTul_mainframe(Frame):
                       relief=RAISED
                       ).grid(row=0, column=col)
             w, h = 4, 1
-            for rw, tul in enumerate(RES.tulajdonsagok[chain]):
+            for rw, tul in enumerate(resource.tulajdonsagok[chain]):
                 f = Frame(container, bd=bw, relief=RIDGE)
                 f.pack()
                 # Erre a button-ra be lehetne kötni valamiféle súgó funkciót
@@ -111,7 +109,7 @@ class FoTul_mainframe(Frame):
                       ).pack(side=LEFT, padx=1)
 
 
-class FoTul_lablec(Frame):
+class FoTulLablec(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
 
@@ -159,4 +157,4 @@ if __name__ == "__main__":
     update.full(globz.kar)
     globz.kar.hail_mary()
     update.full(globz.kar)
-    FoTul_beallitas(root).pack()
+    FoTulBeallitas(root).pack()

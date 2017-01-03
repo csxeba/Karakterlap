@@ -20,13 +20,13 @@ steps = \
 
 frame_szotar = \
     {
-        "adatok": Frame_adatok,
-        "fptp": Frame_fptp,
-        "személyes": Frame_szemelyes,
-        "fő tulajdonságok": FoTul_beallitas,
-        "képzettségek": Frame_kepzettsegek,
-        "harcértékek": Frame_harcertekek,
-        "pszi/mágia": Frame_pszi_magia
+        "adatok": FrameAdatok,
+        "fptp": FrameFpTp,
+        "személyes": FrameSzemelyes,
+        "fő tulajdonságok": FoTulBeallitas,
+        "képzettségek": FrameKepzettsegek,
+        "harcértékek": FrameHarcertekek,
+        "pszi/mágia": FramePsziMagia
     }
 
 

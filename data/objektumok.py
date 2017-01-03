@@ -1,15 +1,14 @@
 """Inicializáló fő script"""
 from tkinter import *
 
-import data.resource as RES
+from . import resource
 
 
 class Fegyver(Frame):
     def __init__(self, master, tipus, nev):
         Frame.__init__(self, master)
-        kar = self.master
         # Ez egy tuple:(méretkat.,időig.,Sp,KÉ,TÉ/CÉ,VÉ,ár,Lefegyverzés,Fegyvertörés,Átütés)
-        res = RES.fegyverek[tipus][nev]
+        res = resource.fegyverek[tipus][nev]
         self.nev = StringVar(value=nev)
         self.meretkategoria = StringVar(value=res[0])
         self.idoigeny = IntVar(value=res[1])
@@ -17,7 +16,7 @@ class Fegyver(Frame):
         self.mods = {}
         self.ossz = {}
         n = 3
-        for c in RES.harcertekek_resource:  # (KÉ,TÉ,VÉ)
+        for c in resource.harcertekek_resource:  # (KÉ,TÉ,VÉ)
             self.mods[c] = IntVar(value=res[n])
             self.ossz[c] = IntVar(value=0)
             n += 1
@@ -70,10 +69,10 @@ class Kepzettseg(Frame):
         self.kp_rakoltott = 0
 
         if self.osszetett and (
-                    "USERDEF" in RES.kepzettseg_alcsoportok[self.nev.get()]):
+                    "USERDEF" in resource.kepzettseg_alcsoportok[self.nev.get()]):
             self.userdef = True
 
-        if self.nev in RES.specializalhato_kepzettsegek:
+        if self.nev in resource.specializalhato_kepzettsegek:
             self.max_szint = 2
         elif "specializáció" in self.nev.get():
             self.min_szint = 3
@@ -82,15 +81,15 @@ class Kepzettseg(Frame):
         if not self.osszetett:
             raise RuntimeError("Ez a képzettség nem összetett:" + self.nev.get())
 
-        res = RES.kepzettseg_alcsoportok[nev[1:]]
+        res = resource.kepzettseg_alcsoportok[nev[1:]]
         # A SPECIFY flag esetén a választható alcsoportok az "anyaképzettségtől"
         # függenek, így helyben kell lekérdezni őket. Egyébként a resource
         # modulban vannak egy szótárban.
         if "SPECIFY" in res:
             if nev == "Fegyver specializáció":
-                return sorted([alcs for alcs in RES.fegyverek[spec]])
+                return sorted([alcs for alcs in resource.fegyverek[spec]])
             elif nev == "Vallásismeret specializáció":
-                return sorted([alcs for alcs in RES.vallasok[spec]])
+                return sorted([alcs for alcs in resource.vallasok[spec]])
             else:
                 return [alcs for alcs in res if alcs != "USERDEF"]
 

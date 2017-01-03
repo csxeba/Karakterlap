@@ -1,15 +1,12 @@
 # -*- coding: Utf-8 -*-
-import tkinter.messagebox as tkmb
+import warnings
 from tkinter import *
+import tkinter.messagebox as tkmb
 
-import data.globz as globz
-import data.hasznos as hasznos
-import data.karakter as karakter
-import data.resource as RES
-import data.update as update
+from . import globz, hasznos, karakter, resource, update
 
 
-class Frame_pszi_magia(Frame):
+class FramePsziMagia(Frame):
     """A Pszi és Mágia frame fő konténere"""
 
     def __init__(self, master):
@@ -18,11 +15,11 @@ class Frame_pszi_magia(Frame):
         globz.kar = karakter
 
         py, bw, rel = 10, 20, RAISED
-        self.pszi_frame = Frame_pszi(self, bd=bw, relief=rel)
+        self.pszi_frame = FramePszi(self, bd=bw, relief=rel)
         self.pszi_frame.pack()
 
-        if globz.kar.szemelyes_adatok["Kaszt"].get() in RES.magiahasznalok:
-            self.magia_frame = Frame_magia(self, bd=bw, relief=rel)
+        if globz.kar.szemelyes_adatok["Kaszt"].get() in resource.magiahasznalok:
+            self.magia_frame = FrameMagia(self, bd=bw, relief=rel)
             self.magia_frame.pack()
         else:
             Label(self, bd=bw, relief=rel, font=("Courier New", 10), width=33,
@@ -80,10 +77,10 @@ class _MainFrame(Frame):
         f = Frame(ftop)
         f.pack(side=LEFT)
 
-        # A framet bezáró gomb # Mégsincs rá szükség :( De azért jól néz ki :D
-        #######################################################################################################################
+        # A framet bezáró gomb. Mégsincs rá szükség :( De azért jól néz ki :D
+        ######################################################################
         Button(f, text=chain, width=5, font=("Courier", 16, "bold")).pack()  #
-        #######################################################################################################################
+        ######################################################################
 
         fmid = Frame(self)
         fmid.pack()
@@ -113,26 +110,29 @@ class _MainFrame(Frame):
             self.buttons.append(Button(f, text=c[0],
                                        command=lambda: self.set_pont(x=c[1])))
             self.buttons[-1].grid(row=2, column=n, padx=px, pady=py)
-            if self.fok.get() == 0: self.buttons[-1].configure(state=DISABLED)
+            if self.fok.get() == 0:
+                self.buttons[-1].configure(state=DISABLED)
             n += 1
 
-    def set_isk(self, x):
+    def set_isk(self, x=None):
+        del x
         hatter_chain = {"Pszi": "Pszi érzékenység", "Mana": "Mágikus fogékonyság"}[self.chain]
         hatter = globz.kar.hatterek[hatter_chain]
         if hatter.get() == '0':
-            if tkmb.askyesno('Vigyázz, Kalandozó!', '''Karakterednek nincs meg a {} háttere.
-Így nem választhatsz iskolát neki!
-Megveszed neki most a {} hátteret? (1 KAP)'''.format(hatter_chain, hatter_chain)):
+            msg = 'Karakterednek nincs meg a {} háttere.\n'.format(hatter_chain)
+            msg += 'Így nem választhatsz iskolát neki!\n'
+            msg += 'Megveszed neki most a {} hátteret? (1 KAP)'.format(hatter_chain)
+            if tkmb.askyesno('Vigyázz, Kalandozó!', msg):
                 hatter.set(1)
                 update.kap(globz.kar)
                 self.update_method(globz.kar)
             else:
                 return
 
-        Iskola_Toplevel(self)
+        IskolaToplevel(self)
 
-    def set_pont(self, x):
-        raise RuntimeError("Ez a metódus szar. Újra kell írni.")
+    def set_pont(self, x=None):
+        warnings.warn("Ez a metódus szar. Újra kell írni.")
         multiplier = {"Pszi": 2, "Mana": 3}[self.chain]
         "Kezeli a max pont növelésére irányuló próbálkozásokat. <x> a gomb lenyomásakor generálódik (lamba)"
         if x in (1, 5):  # Ez az ág akkor fut, ha a user növelni akarja a pszi pontjait. <x> 1 lehet vagy 5.
@@ -143,7 +143,8 @@ Megveszed neki most a {} hátteret? (1 KAP)'''.format(hatter_chain, hatter_chain
         elif x == "mégse":  # Ez az ág a "Mégse" gombra való kattintáskor fut.
             hasznos.mod_IntVar(globz.kar.KAP,
                                self.KAP.get())  # Trükkös: vissza kívánjuk állítani az elosztható KAP-ok számát,
-            # minden Pszi-pont 2 KAP-ba kerül, így minden elosztott pont 0-ra állítása után 2 elosztható kapot nyerünk vissza,
+            # minden Pszi-pont 2 KAP-ba kerül,
+            # így minden elosztott pont 0-ra állítása után 2 elosztható kapot nyerünk vissza,
             # tehát a levonás utáni KAP-ok számához hozzáadjuk a pontokra költött KAP-ok 2X-esét.
             self.KAP.set(0)  # A Karakter objektum megfelelő attribútumát is lenullázzuk.
 
@@ -153,7 +154,7 @@ Megveszed neki most a {} hátteret? (1 KAP)'''.format(hatter_chain, hatter_chain
         self.update_method(globz.kar)
 
 
-class Frame_pszi(_MainFrame):
+class FramePszi(_MainFrame):
     def __init__(self, master, **kw):
         self.chain = "Pszi"
         _MainFrame.__init__(self, master, self.chain, **kw)
@@ -178,13 +179,13 @@ class Frame_pszi(_MainFrame):
             n += 2
 
 
-class Frame_magia(_MainFrame):
+class FrameMagia(_MainFrame):
     def __init__(self, master, **kw):
         self.chain = "Mana"
         _MainFrame.__init__(self, master, self.chain, **kw)
 
 
-class Iskola_Toplevel(Toplevel):
+class IskolaToplevel(Toplevel):
     def __init__(self, master):
         Toplevel.__init__(self, master)
 
@@ -205,8 +206,8 @@ class Iskola_Toplevel(Toplevel):
 
         fo = ("Times New Roman", 16, 'bold')
 
-        for c in {"Pszi": RES.pszi_iskolak,
-                  "Mana": RES.magia_iskolak}[self.chain]:
+        for c in {"Pszi": resource.pszi_iskolak,
+                  "Mana": resource.magia_iskolak}[self.chain]:
             r = Radiobutton(fr1, text=c, variable=self.iskola, value=c, font=fo, command=self.rb_modifier)
             r.pack(anchor=W, pady=4)
 
@@ -217,7 +218,8 @@ class Iskola_Toplevel(Toplevel):
             self.rb_sz.append(Radiobutton(fr2, text=str(c),
                                           variable=self.fok, value=c, font=fo))
             self.rb_sz[-1].pack(anchor=W)
-            if self.iskola.get() == ' ': self.rb_sz[-1].configure(state=DISABLED)
+            if self.iskola.get() == ' ':
+                self.rb_sz[-1].configure(state=DISABLED)
 
         fr_bot = Frame(self)
         fr_bot.pack()
@@ -228,28 +230,30 @@ class Iskola_Toplevel(Toplevel):
     def update(self):
         self.update_method(globz.kar)
         if self.fok.get() > 0:
-            for c in self.master.buttons: c.configure(state=ACTIVE)
+            for c in self.master.buttons:
+                c.configure(state=ACTIVE)
 
         # A megfelelő képzettség-változót átállítjuk
-        kepzettseg = None
+        # kepzettseg = None
         if self.chain == "Pszi":
             kepzettseg = globz.kar.kepzettsegek["Pszi"]
         else:
-            kepzettseg = {True: "Tapasztalati mágia", False: "Magasmágia"} \
-                [self.iskola.get() in RES.tapasztalai_magiaformak]
+            kepzettseg = ({True: "Tapasztalati mágia", False: "Magasmágia"}
+                          [self.iskola.get() in resource.tapasztalai_magiaformak])
 
         kepzettseg.fok.set(self.fok.get())
 
     def reset(self):
-        "Alapértemezettre állítja vissza a Karakter objektum megfelelő attribútumait."
+        """Alapértemezettre állítja vissza a Karakter objektum megfelelő attribútumait."""
         self.iskola.set(' ')  # Ezek a sorok majd függenek a személyes tulajdonságoktól!
         self.fok.set(0)
         self.update_method(globz.kar)
         self.destroy()
 
     def rb_modifier(self):
-        "A különféle iskolák kizárnak bizonyos fok-értékeket. A megfelelő Radiobutton-ok itt deaktiválódnak."
-        for c in self.rb_sz: c.configure(state=ACTIVE)
+        """A különféle iskolák kizárnak bizonyos fok-értékeket. A megfelelő Radiobutton-ok itt deaktiválódnak."""
+        for c in self.rb_sz:
+            c.configure(state=ACTIVE)
         x = self.iskola.get()
         if x == 'Pyarroni módszer':  # Nincs 5. foka!
             self.rb_sz[4].configure(state=DISABLED)
@@ -271,12 +275,3 @@ képzettségekbe. Ez nem lesz egyszerű.
 - + apróságok, amiket kommentekbe beirkáltam.
 
 """
-
-if __name__ == '__main__':
-    root = Tk()
-    f = Frame(root)
-    f.pack()
-    globz.kar = karakter.Karakter(root)
-    root.title("Pszi és mágia (debug)")
-    fr = Frame_pszi_magia(f)
-    fr.pack()

@@ -2,26 +2,23 @@
 import tkinter.messagebox as tkmb
 from tkinter import *
 
-import data.globz as globz
-import data.hasznos as hasznos
-import data.resource as RES
-import data.update as update
-from data.bases import FrameBase
+from . import globz, hasznos, resource, update
+from .bases import FrameBase
 
 
-class Frame_szemelyes(FrameBase):
+class FrameSzemelyes(FrameBase):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
         self.configure(bg="dark grey", relief=RAISED, borderwidth=20)
-        Frame_adatok(self, borderwidth=2.5, relief=RAISED).pack(fill=X)
-        Frame_fptp(self).pack(fill=X)
+        FrameAdatok(self, borderwidth=2.5, relief=RAISED).pack(fill=X)
+        FrameFpTp(self).pack(fill=X)
 
     def check(self):
         # A nevet be kell huzalozni ide!
         return " " not in [var.get() for var in globz.kar.szemelyes_adatok.values()]
 
 
-class Frame_adatok(Frame):
+class FrameAdatok(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
 
@@ -48,9 +45,9 @@ class Frame_adatok(Frame):
         # Alatta a személyes adatokat kezelő panel
         f = Frame(self, bd=1)
         f.pack()
-        self.szemelyes_labelek = {c: None for c in RES.szemelyes_adat_nevek}
+        self.szemelyes_labelek = {c: None for c in resource.szemelyes_adat_nevek}
         n = 0
-        for c in RES.szemelyes_adat_nevek:
+        for c in resource.szemelyes_adat_nevek:
             Label(f, width=11, text=c, bd=bw, relief=RAISED
                   ).grid(row=n, column=0, sticky="news")
             self.szemelyes_labelek[c] = \
@@ -76,7 +73,7 @@ class Frame_adatok(Frame):
 
     def name_popup(self, x):
         del x
-        name_tl = self._Name_Toplevel(self)
+        name_tl = self.NameToplevel(self)
         name_tl.grab_set()
 
     def adat_popup(self, event):
@@ -97,7 +94,7 @@ class Frame_adatok(Frame):
                 if kaszt == ' ':
                     tkmb.showerror("Hiba!", "Előbb kasztot kell választanod!")
                     return 1
-                if (melyik == 'Kaszt altípus') and (not RES.kaszt_altipusok[kaszt]):
+                if (melyik == 'Kaszt altípus') and (not resource.kaszt_altipusok[kaszt]):
                     tkmb.showwarning("Figyelem!", "Ennek a kasztnak nincsenek altípusai!")
                     return 1
 
@@ -126,14 +123,14 @@ class Frame_adatok(Frame):
         if errcode is 1:
             return
 
-        self.tl = self._Adat_Toplevel(self, melyik)
+        self.tl = self.AdatToplevel(self, melyik)
         self.tl.grab_set()
 
     def hatterek_popup(self):
-        tl = self._Hatterek_toplevel(self)
+        tl = self.HatterekToplevel(self)
         tl.grab_set()
 
-    def adat_OK(self):
+    def adat_ok(self):
         """Személyes adatokból jövő KAP levonások (Faj és Kaszt miatt jöhet)"""
         adatok = globz.kar.szemelyes_adatok
         hatterek = globz.kar.hatterek
@@ -150,9 +147,9 @@ class Frame_adatok(Frame):
 
         kaszt = globz.kar.szemelyes_adatok["Kaszt"].get()
         if kaszt not in [' ', '']:
-            levonasok += RES.kasztok_KAP[kaszt]
+            levonasok += resource.kasztok_KAP[kaszt]
             hatterek['Klán, rend, iskola'].set(
-                RES.kasztok_KAP[kaszt])
+                resource.kasztok_KAP[kaszt])
             labelek['Iskola'].configure(bg="white")
             if kaszt in ("Tolvaj", "Fejvadász"):
                 labelek['Kaszt altípus'].configure(bg="white")
@@ -193,22 +190,22 @@ class Frame_adatok(Frame):
         adatok = kar.szemelyes_adatok
 
         kar.nev.set("Hail Mary")
-        for adat_nev in RES.szemelyes_adat_nevek:
+        for adat_nev in resource.szemelyes_adat_nevek:
             if adat_nev in ("Iskola", "Kaszt altípus", "Isten", "Ország"):
                 continue
-            adatok[adat_nev].set(random.choice(RES.szemelyes_adat_sz[adat_nev]))
+            adatok[adat_nev].set(random.choice(resource.szemelyes_adat_sz[adat_nev]))
         update.szemelyes_forrasok(kar)
         osszetett = ("Iskola", "Isten", "Ország")
         for adat_nev in osszetett:
-            adatok[adat_nev].set(random.choice(RES.szemelyes_adat_sz[adat_nev]))
+            adatok[adat_nev].set(random.choice(resource.szemelyes_adat_sz[adat_nev]))
         if kar.szemelyes_adatok["Kaszt"].get() in ("Tolvaj", "Fejvadász"):
-            adatok["Kaszt altípus"].set(random.choice(RES.szemelyes_adat_sz["Kaszt altípus"]))
+            adatok["Kaszt altípus"].set(random.choice(resource.szemelyes_adat_sz["Kaszt altípus"]))
         else:
             adatok["Kaszt altípus"].set("Nincs")
 
-        self.adat_OK()
+        self.adat_ok()
 
-    class _Name_Toplevel(Toplevel):
+    class NameToplevel(Toplevel):
         def __init__(self, master):
             Toplevel.__init__(self, master)
             self.title("Név beállítása")
@@ -220,7 +217,7 @@ class Frame_adatok(Frame):
             name_entry.pack()
             Button(self, text="OK", width=10, command=self.destroy).pack(side=RIGHT)
 
-    class _Adat_Toplevel(Toplevel):
+    class AdatToplevel(Toplevel):
         def __init__(self, master, melyik):
             Toplevel.__init__(self, master)
             self.master = master
@@ -230,13 +227,13 @@ class Frame_adatok(Frame):
             rb_frame = Frame(self)
             rb_frame.pack(fill=X)
 
-            tupl = RES.szemelyes_adat_sz[melyik]
+            tupl = resource.szemelyes_adat_sz[melyik]
             w = max([len(x) for x in tupl])
             if w < 30:
                 w = 30
 
             for chain in tupl:
-                Radiobutton(rb_frame, text=chain, command=self.master.adat_OK,
+                Radiobutton(rb_frame, text=chain, command=self.master.adat_ok,
                             width=w, anchor=W, indicatoron=0, justify=LEFT,
                             variable=globz.kar.szemelyes_adatok[melyik],
                             value=chain).pack(fill=X)
@@ -255,15 +252,15 @@ class Frame_adatok(Frame):
         def adat_reset(self, melyik):
             globz.kar.szemelyes_adatok[melyik].set(' ')
             self.master.hatterek_gomb.configure(state=DISABLED)
-            self.master.adat_OK()
+            self.master.adat_ok()
             self.destroy()
 
-    class _Hatterek_toplevel(Toplevel):
+    class HatterekToplevel(Toplevel):
         def __init__(self, master):
             Toplevel.__init__(self, master)
 
             self.master = master
-            res = RES.hatterek_resource
+            res = resource.hatterek_resource
 
             f = Frame(self)
             f.pack()
@@ -304,7 +301,7 @@ class Frame_adatok(Frame):
                 update.foTul(globz.kar)
 
 
-class Frame_fptp(Frame):
+class FrameFpTp(Frame):
     def __init__(self, master, **kw):
         Frame.__init__(self, master, **kw)
 
@@ -321,19 +318,19 @@ class Frame_fptp(Frame):
         frame_ep = self._EleteroPanel(self, bd=bw, relief=RAISED)
         frame_ep.pack(side=RIGHT, fill=X)
 
-    def set_TP(self, x):
+    def set_tp(self, x):
         del x
-        TP = self.TP_entry.get()
-        if not TP:
-            TP = 0
+        tp = self.TP_entry.get()
+        if not tp:
+            tp = 0
         try:
-            TP = int(TP)  # Ez sajnos elkerülhetetlen.
+            tp = int(tp)  # Ez sajnos elkerülhetetlen.
         except ValueError:
             tkmb.showerror('Rossz adat!', 'A TP egy természetes szám kell, hogy legyen!')
-        if TP < 0:
+        if tp < 0:
             tkmb.showerror('Rossz adat!', 'A TP egy természetes szám kell, hogy legyen!')
         else:
-            globz.kar.TP.set(TP)  # Ha miden OK, átadjuk az új TP értéket a Karakter objektumnak,
+            globz.kar.TP.set(tp)  # Ha miden OK, átadjuk az új TP értéket a Karakter objektumnak,
 
         # és frissítjük a kijelzett szint-értéket.
         self.TP_entry.delete(0, END)
@@ -383,7 +380,7 @@ class Frame_fptp(Frame):
 
             px, py = 10, 4
             self.master.TP_entry = Entry(f, width=5, bd=bw, relief=RAISED)
-            self.master.TP_entry.bind("<Return>", self.master.set_TP)
+            self.master.TP_entry.bind("<Return>", self.master.set_tp)
             self.master.TP_entry.grid(row=0, column=1, pady=py, padx=px)
             Label(f, width=5, bd=bw, relief=RAISED, textvar=globz.kar.KAP).grid(row=1, column=1, padx=px, pady=py)
 
@@ -417,15 +414,3 @@ class Frame_fptp(Frame):
                 Button(f, text=c[0], width=w, command=lambda arg=c[1]: self.master.fp_nov(arg)
                        ).grid(row=0, column=n, padx=px)
                 n += 1
-
-
-if __name__ == '__main__':
-    import data.karakter as karakter
-
-    root = Tk()
-    root.geometry("+250+250")
-    globz.kar = karakter.Karakter(root)
-    fr = Frame_szemelyes(root)
-    fr.pack()
-    root.title("frame_top_mid")
-    root.mainloop()

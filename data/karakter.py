@@ -1,9 +1,9 @@
 # -*- coding: Utf-8 -*-
-"""Karakter osztály: Frame-ből leszármaztatva, így csatolhatok hozzá Tkinter
-IntVar és StringVar objektumokat, de nem lesz 'mainloop'-olva."""
+"""Karakter osztály: Frame-ből leszármaztatva, így csatolhatok hozzá
+Tkinter IntVar és StringVar objektumokat, de nem lesz 'mainloop'-olva."""
 from tkinter import *
 
-from data import hasznos, objektumok, resource, update
+from . import hasznos, objektumok, resource, update
 
 
 class Karakter(Frame):

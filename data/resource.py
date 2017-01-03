@@ -1,4 +1,4 @@
-##### SZEMÉLYES ADATOK #####
+# SZEMÉLYES ADATOK
 
 szemelyes_adat_nevek = ('Faj', 'Kaszt', 'Iskola', 'Jellem', 'Vallás', 'Isten',
                         'Szülőföld', 'Ország', 'Kaszt altípus')
@@ -211,7 +211,7 @@ szemelyes_adat_dependencia = \
 # Kasztok KAP költségei
 kasztok_KAP = dict(zip(kasztok, (5, 6, 7, 6, 6, 10, 7, 6, 5, 6, 6, 10)))
 
-##### HÁTTEREK #####
+# HÁTTEREK
 
 # Név                     KAP
 hatterek_resource = {'Adottság': 20,
@@ -232,7 +232,7 @@ hatterek_resource = {'Adottság': 20,
                      'Vagyon': 3
                      }
 
-##### FŐ TULAJDONSÁGOK #####
+# FŐ TULAJDONSÁGOK
 
 fo_tulajdonsag_nevek = ('ERŐ', 'GYO', 'ÜGY', 'ÁLL', 'EGÉ',
                         'KAR', 'INT', 'AKE', 'AST', 'ÉRZ')
@@ -255,7 +255,7 @@ faji_bonuszok = {
                       'KAR': 1, 'INT': 1, 'AST': 1}
 }
 
-##### KÉPZETTSÉGEKBŐL FAKADÓ BÓNUSZOK #####
+# KÉPZETTSÉGEKBŐL FAKADÓ BÓNUSZOK
 
 bonusz_mitmihez = \
     {
@@ -268,10 +268,10 @@ bonusz_mitmihez = \
 
 pontok = ("fp", "hm", "pszi", "mana", "kegy")
 
-##### KAP KÖLTSÉGEK, VÁSÁROLHATÓ PONTOK #####
+# KAP KÖLTSÉGEK, VÁSÁROLHATÓ PONTOK
 pont_KAP_szorzok = {zip(pontok, (1, 2, 2, 3, 3))}
 
-##### HARC ÉS HARCÉRTÉKEK #####
+# HARC ÉS HARCÉRTÉKEK
 
 harcertekek_resource = ('KÉ', 'TÉ', 'VÉ', 'CÉ')
 
@@ -547,16 +547,14 @@ kepzettseg_alcsoportok = \
     }
 
 for panteon in istenek.values():
-    if not panteon: continue
+    if not panteon:
+        continue
     kepzettseg_alcsoportok["Vallásismeret"] = ["USERDEF"] + list(panteon)
 
 kaszt_indulo_kepzettsegek = \
     {
         "Egyéb harcos": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2, 2),
             "Fegyverismeret": 2,
             "Fájdalomtűrés": 2,
             "Harctéri gyakorlat": 2,
@@ -570,9 +568,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Amazon": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Fegyverismeret": 2,
             "Fájdalomtűrés": 2,
             "Harctéri gyakorlat": 2,
@@ -590,9 +586,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Barbár": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Fájdalomtűrés": 2,
             "Harctéri gyakorlat": 2,
             "Harci láz": 2,
@@ -607,8 +601,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Erigowi számszeríjász": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Csapdaállítás": 1,
             "Fegyverismeret": 2,
             "Futás": 2,
@@ -622,9 +615,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Siedon": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Orvtámadás": 2,
             "Fegyverismeret": 2,
             "Élettan": 1,
@@ -638,9 +629,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Predoci vértes": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Fegyverismeret": 2,
             "Harctéri gyakorlat": 2,
             "Pajzshasználat": 2,
@@ -652,9 +641,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Egyéb lovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Harctéri gyakorlat": 2,
             "Fegyverismeret": 2,
             "Vértviselet": 3,
@@ -669,8 +656,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Feketerend": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Harctéri gyakorlat": 2,
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
@@ -689,8 +675,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Marico con Rabora lovagrend": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Harctéri gyakorlat": 2,
             "Pajzshasználat": 3,
             "Fegyverismeret": 2,
@@ -707,8 +692,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Isten kardja lovagrend": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Harctéri gyakorlat": 2,
             "Pajzshasználat": 2,
             "Fegyverismeret": 2,
@@ -727,8 +711,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Erigowi Krad lovagrend": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Harctéri gyakorlat": 2,
             "Fegyverismeret": 2,
             "Vértviselet": 3,
@@ -746,14 +729,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Fejvadász (harcos)": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
+            "Fegyverhasználat": (3, 2, 1, 1, 1, 1, 1, 1, 2),
             "Pusztakezes harc": 2,
             "Fájdalomtűrés": 2,
             "Fegyverismeret": 2,
@@ -773,14 +749,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Fejvadász (orgyilkos)": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
+            "Fegyverhasználat": (3, 2, 1, 1, 1, 1, 1, 1),
             "Pusztakezes harc": 1,
             "Fájdalomtűrés": 1,
             "Fegyverismeret": 2,
@@ -802,14 +771,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Fejvadász (felderítő)": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
+            "Fegyverhasználat": (2, 2, 1, 1, 1, 1, 1, 1),
             "Fájdalomtűrés": 1,
             "Fegyverismeret": 2,
             "Álcázás/álruha": 3,
@@ -836,14 +798,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Fejvadász (testőr)": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
-            "Fegyverhasználat": 1,
+            "Fegyverhasználat": (3, 2, 1, 1, 1, 1, 1, 1),
             "Fájdalomtűrés": 2,
             "Vértviselet": 2,
             "Fegyverismeret": 2,
@@ -957,8 +912,7 @@ kaszt_indulo_kepzettsegek = \
         "Egyéb bárd": {
             "Fegyverhasználat": 2,
             "Szexuális kultúra": 2,
-            "Művészet": 3,
-            "Művészet": 3,
+            "Művészet": (3, 3),
             "Nyelvtudás": 4,
             "Kultúra": 4,
             "Legendaismeret": 3,
@@ -968,14 +922,12 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Aszisz énekmondó": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 2),
             "Kocsmai verekedés": 2,
             "Értékbecslés": 1,
             "Szerencsejáték": 2,
             "Szexuális kultúra": 2,
-            "Művészet": 1,
-            "Művészet": 1,
+            "Művészet": (1, 1),
             "Lélektan": 1,
             "Tapasztalati mágia": 3,
             "Akrobatika": 10,
@@ -987,12 +939,8 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Lombhullás árvái": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
-            "Művészet": 3,
-            "Művészet": 2,
-            "Művészet": 2,
-            "Művészet": 2,
+            "Fegyverhasználat": (2, 2),
+            "Művészet": (3, 2, 2, 2),
             "Párbaj": 2,
             "Heraldika": 1,
             "Írás/olvasás": 2,
@@ -1000,16 +948,14 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Vándorló dalnok": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 2),
             "Lovaglás": 3,
             "Idomítás": 2,
             "Állatismeret": 2,
             "Vadonjárás": 2,
             "Nyomolvasás": 2,
             "Herbalizmus": 1,
-            "Művészet": 2,
-            "Művészet": 2,
+            "Művészet": (2, 2),
             "Legendaismeret": 2,
             "Tapasztalati mágia": 3,
             "Mászás": 10,
@@ -1018,8 +964,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Sötét bárd": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 2),
             "Kínzás": 2,
             "Orvtámadás": 2,
             "Élettan": 2,
@@ -1028,18 +973,14 @@ kaszt_indulo_kepzettsegek = \
             "Lélektan": 1,
             "Vallásismeret": 1,
             "Álcázás/álruha": 2,
-            "Művészet": 2,
-            "Művészet": 2,
-            "Művészet": 1,
-            "Művészet": 1,
+            "Művészet": (2, 2, 1, 1),
             "Tapasztalati mágia": 3,
             "Lopódzás": 10,
             "Rejtőzködés": 10
         },
 
         "Harcművész": {
-            "Harcművészet": 3,
-            "Harcművészet": 3,
+            "Harcművészet": (3, 3),
             "Pszi": 3,
             "Írás/olvasás": 1,
             "Orvoslás": 2,
@@ -1050,8 +991,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Kardművész": {
-            "Harcművészet": 3,
-            "Harcművészet": 3,
+            "Harcművészet": (3, 3),
             "Pszi": 3,
             "Írás/olvasás": 1,
             "Orvoslás": 2,
@@ -1107,7 +1047,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Arel-pap": {
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 3),
             "Vallásismeret": 3,
             "Lélektan": 2,
             "Ékesszólás": 2,
@@ -1115,7 +1055,6 @@ kaszt_indulo_kepzettsegek = \
             "Nyelvtudás": 3,
             "Történelem": 2,
             "Legendaismeret": 1,
-            "Fegyverhasználat": 3,
             "Harctéri gyakorlat": 2,
             "Lovaglás": 3,
             "Vadonjárás": 2,
@@ -1178,8 +1117,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Egyéb paplovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,  # EZ VAGYLAGOS A PAJZSHASZNÁLATTAL!
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1196,8 +1134,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Darton-paplovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1219,8 +1156,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Domvik-paplovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1243,8 +1179,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Dreina-paplovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1267,8 +1202,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Aranykör lovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1280,10 +1214,9 @@ kaszt_indulo_kepzettsegek = \
             "Lélektan": 2,
             "Udvari etikett": 2,
             "Írás/olvasás": 3,
-            "Történelem": 2,
+            "Történelem": 3,
             "Vallásismeret": 3,
             "Számtan/mértan": 2,
-            "Történelem": 3,
             "Térképészet": 2,
             "Legendaismeret": 2,
             "Kultúra": 2,
@@ -1291,8 +1224,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Ranagol-paplovag": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1306,7 +1238,6 @@ kaszt_indulo_kepzettsegek = \
             "Írás/olvasás": 2,
             "Történelem": 2,
             "Vallásismeret": 3,
-            "Fegyverhasználat": 2,
             "Élettan": 2,
             "Kínzás": 2,
             "Orvtámadás": 2,
@@ -1316,8 +1247,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Főnix": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1336,8 +1266,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Bosszúangyal": {
-            "Fegyverhasználat": 3,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (3, 2),
             "Pajzshasználat": 2,
             "Fájdalomtűrés": 2,
             "Hadvezetés": 2,
@@ -1404,8 +1333,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Ascens Morga": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 2),
             "Nyelvtudás": 2,
             "Alkímia": 3,
             "Élettan": 2,
@@ -1438,8 +1366,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Tűzvarázsló": {
-            "Fegyverhasználat": 2,
-            "Fegyverhasználat": 2,
+            "Fegyverhasználat": (2, 2),
             "Nyelvtudás": 3,
             "Írás/olvasás": 3,
             "Ősi nyelv": 3,
@@ -1450,8 +1377,7 @@ kaszt_indulo_kepzettsegek = \
         },
 
         "Varázsló": {
-            "Nyelvtudás": 3,
-            "Nyelvtudás": 2,
+            "Nyelvtudás": (3, 2),
             "Politika/diplomácia": 2,
             "Udvari etikett": 2,
             "Írás/olvasás": 3,
@@ -1463,372 +1389,278 @@ kaszt_indulo_kepzettsegek = \
         },
     }
 
-##### MÁGIA ÉS PSZI #####
+# MÁGIA ÉS PSZI
 
 tapasztalati_magiaformak = ("Bárd", "Boszorkány", "Boszorkánymester", "Tűzvarázsló")
-magiahasznalok = tuple(list(tapasztalati_magiaformak) + ["Varázsló"])
+magiahasznalok = tapasztalati_magiaformak + ("Varázsló",)
 muveszet_formak = ("Rajz", "Ének", "Szobrászat", "Festészet", "Zene")
 pszi_iskolak = ('Pyarroni módszer', 'Kyr metódus', 'Slan út', 'Godoni ösvény')
 
-##### KÉPZETTSÉG BÓNUSZOK: OKTATÁS, FAJI ELŐNYÖK #####
+# KÉPZETTSÉG BÓNUSZOK: OKTATÁS, FAJI ELŐNYÖK
 
 oktatas_bonuszok = {
-    "Egyéb harcos": \
-        ("Akrobatika", "Állatismeret", "Esés", "Fájdalomtűrés",
-         "Fegyverhasználat", "Futás", "Harctéri gyakorlat", "Hadvezetés",
-         "Harci láz", "Lélektan", "Lovaglás", "Mászás", "Művészet",
-         "Pajzshasználat", "Pusztakezes harc", "Számtan/mértan", "Taktika",
-         "Térképészet", "Úszás", "Vértviselet"),
-
-    "Amazon": "Egyéb harcos",
-
-    "Barbár": \
-        ("Minden Harci", "Minden Világi"),
-
-    "Erigowi számszeríjász": \
-        ("Akrobatika", "Esés", "Fájdalomtűrés",
-         "Fegyverhasználat", "Futás", "Hadvezetés", "Harctéri gyakorlat",
-         "Jelbeszéd", "Lélektan", "Mászás", "Mechanika", "Művészet",
-         "Nyomolvasás", "Számtan/mértan", "Taktika", "Térképészet",
-         "Úszás", "Vadonjárás"),
-
-    "Siedon": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
-         "Fájdalomtűrés", "Fegyverhasználat", "Fegyverismeret", "Futás",
-         "Harctéri gyakorlat", "Heraldika", "Írás/olvasás",
-         "Kétkezes harc", "Kultúra", "Lopódzás", "Orvtámadás", "Párbaj",
-         "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet",
-         "Udvari etikett", "Vértviselet", "Zárnyitás"),
-
-    "Predoci vértes": \
-        ("Állatismeret", "Esés", "Fájdalomtűrés",
-         "Fegyverhasználat", "Fegyverismeret", "Hadvezetés",
-         "Harctéri gyakorlat", "Heraldika", "Idomítás",
-         "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás",
-         "Mászás", "Művészet", "Párbaj", "Számtan/mértan",
-         "Taktika", "Térképészet", "Udvari etikett", "Úszás",
-         "Vértviselet"),
-
-    "Egyéb lovag": \
-        ("Állatismeret", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás", "Művészet",
-         "Nyelvtudás", "Pajzshasználat", "Párbaj", "Számtan/mértan", "Taktika",
-         "Térképészet", "Történelem", "Udvari etikett", "Vértviselet"),
-
-    "Feketerend": \
-        ("Állatismeret", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás", "Művészet",
-         "Nyelvtudás", "Ősi nyelv", "Pajzshasználat", "Párbaj", "Pszi", "Pusztítás",
-         "Számtan/mértan", "Taktika", "Térképészet", "Történelem", "Udvari etikett",
-         "Vértviselet"),
-
-    "Marico con Rabora lovagrend": \
-        ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
-         "Művészet", "Nyelvtudás", "Pajzshasználat", "Párbaj", "Pszi",
-         "Számtan/mértan", "Taktika", "Térképészet",
-         "Történelem", "Udvari etikett", "Vallásismeret", "Vértviselet"),
-
-    "Isten kardja lovagrend": \
-        ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
-         "Művészet", "Nyelvtudás", "Ősi nyelv", "Pajzshasználat", "Párbaj", "Pszi",
-         "Számtan/mértan", "Taktika", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet"),
-
-    "Erigowi Krad lovagrend": \
-        ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
-         "Művészet", "Pajzshasználat", "Párbaj", "Pszi", "Számtan/mértan",
-         "Taktika", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet"),
-
-    "Fejvadász (harcos)": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
-         "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
-         "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
-         "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi",
-         "Pusztakezes harc", "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés",
-         "Szabadulóművészet", "Számtan/mértan", "Színészet", "Taktika", "Vakharc",
-         "Vértviselet", "Zárnyitás"),
-
-    "Fejvadász (orgyilkos)": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
-         "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
-         "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
-         "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi",
-         "Pusztakezes harc", "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés",
-         "Szabadulóművészet", "Számtan/mértan", "Színészet", "Taktika", "Vakharc",
-         "Vértviselet", "Zárnyitás"),
-
-    "Fejvadász (felderítő)": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
-         "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
-         "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lélektan", "Lopódzás",
-         "Mászás", "Mechanika", "Művészet", "Nyomolvasás", "Orvtámadás", "Pszi",
-         "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet", "Szakma",
-         "Számtan/mértan", "Színészet", "Taktika", "Vakharc", "Zárnyitás"),
-
-    "Fejvadász (testőr)": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
-         "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
-         "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
-         "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi", "Pusztakezes harc",
-         "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet",
-         "Számtan/mértan", "Színészet", "Taktika", "Vakharc", "Vértviselet",
-         "Zárnyitás"),
-
-    "Tolvaj": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
-         "Ékesszólás", "Élettan", "Építészet", "Értékbecslés", "Esés",
-         "Fegyverhasználat", "Hamisítás", "Helyismeret", "Heraldika", "Írás/olvasás",
-         "Jelbeszéd", "Kétkezes harc", "Kocsmai verekedés", "Kultúra",
-         "Legendaismeret", "Lélektan", "Lopódzás", "Mászás", "Mechanika",
-         "Művészet", "Nyomolvasás", "Orvtámadás", "Rejtekhely kutatás",
-         "Rejtőzködés", "Szabadulóművészet", "Számtan/mértan",
-         "Szerencsejáték", "Színészet", "Udvari etikett", "Zárnyitás",
-         "Zsebmetszés"),
-
-    "Egyéb bárd": \
-        ("Álcázás/álruha", "Ékesszólás", "Értékbecslés", "Fegyverhasználat",
-         "Írás/olvasás", "Heraldika", "Kocsmai verekedés", "Kultúra",
-         "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Nyelvtudás",
-         "Párbaj", "Rejtekhely kutatás", "Rejtőzködés", "Szerencsejáték",
-         "Szexuális kultúra", "Színészet", "Tapasztalati mágia", "Történelem",
-         "Udvari etikett", "Zárnyitás"),
-
-    "Aszisz énekmondó": \
-        ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
-         "Értékbecslés", "Fegyverhasználat", "Hamisítás", "Írás/olvasás",
-         "Heraldika", "Kocsihajtás", "Kocsmai verekedés", "Kultúra",
-         "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Rejtekhely kutatás",
-         "Rejtőzködés", "Szabadulóművészet", "Szerencsejáték", "Szexuális kultúra",
-         "Színészet", "Tapasztalati mágia", "Történelem",
-         "Zárnyitás", "Színészet"),
-
-    "Lombhullás árvái": \
-        ("Akrobatika", "Értékbecslés", "Fegyverhasználat", "Heraldika",
-         "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Nyelvtudás",
-         "Rejtekhely kutatás", "Rejtőzködés", "Szerencsejáték", "Szexuális kultúra",
-         "Színészet", "Tapasztalati mágia", "Történelem"),
-
-    "Vándorló dalnok": \
-        ("Akrobatika", "Állatismeret", "Csomózás", "Értékbecslés", "Esés",
-         "Fegyverhasználat", "Hangutánzás", "Harctéri gyakorlat", "Herbalizmus",
-         "Idomítás", "Kocsmai verekedés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lopódzás", "Lovaglás", "Mászás", "Művészet", "Párbaj", "Rejtőzködés",
-         "Szexuális kultúra", "Tapasztalati mágia", "Vadonjárás"),
-
-    "Sötét bárd": \
-        ("Fegyverhasználat", "Vallásismeret", "Kínzás", "Lélektan", "Művészet",
-         "Színészet", "Álcázás/álruha", "Orvtámadás", "Lopódzás", "Rejtőzködés",
-         "Kétkezes harc", "Kultúra", "Élettan", "Írás/olvasás", "Legendaismeret",
-         "Történelem", "Udvari etikett", "Tapasztalati mágia"),
-
-    "Harcművész": \
-        ("Akrobatika", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverismeret",
-         "Futás", "Harcművészet", "Harctéri gyakorlat", "Herbalizmus", "Írás/olvasás",
-         "Kétkezes harc", "Kultúra", "Művészet", "Nyelvtudás", "Orvoslás", "Párbaj",
-         "Pszi", "Udvari etikett", "Vakharc", "Vértviselet"),
-
-    "Kardművész": "Harcművész",
-
-    "Egyéb pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret"),
-
-    "Domvik-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Hadvezetés", "Oktatás", "Ősi nyelv"),
-
-    "Ranagol-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Alkímia", "Kínzás", "Művészet", "Ősi nyelv"),
-
-    "Arel-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Állatismeret", "Hadvezetés", "Harci láz",
-         "Harctéri gyakorlat", "Fájdalomtűrés", "Fegyverismeret", "Idomítás",
-         "Kocsmai verekedés", "Lovaglás", "Nyomolvasás", "Szakma", "Szerencsejáték",
-         "Vadonjárás"),
-
-    "Kyel-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat",
-         "Pajzshasználat", "Pusztítás", "Vértviselet"),
-
-    "Sogron-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Hadvezetés", "Tapasztalati mágia", "Vértviselet"),
-
-    "Tharr-pap": \
-        ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Alkímia", "Kínzás", "Méregkeverés/semlegesítés",
-         "Orvtámadás"),
-
-    "Egyéb paplovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet"),
-
-    "Darton-paplovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Kocsmai verekedés", "Élettan",
-         "Pusztítás", "Pusztakezes harc", "Szerencsejáték"),
-
-    "Domvik-paplovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Élettan", "Jog/törvénykezés",
-         "Politika/diplomácia", "Ősi nyelv"),
-
-    "Dreina-paplovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Értékbecslés", "Jog/törvénykezés",
-         "Politika/diplomácia", "Szakma"),
-
-    "Aranykör lovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Jog/törvénykezés", "Térképészet"),
-
-    "Ranagol-paplovag": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Méregkeverés/semlegesítés",
-         "Alkímia", "Orvtámadás", "Kínzás"),
-
-    "Főnix": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Hajózás", "Térképészet",
-         "Tapasztalati mágia", "Csomózás", "Ősi nyelv", "Taktika"),
-
-    "Bosszúangyal": \
-        ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
-         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
-         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
-         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
-         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
-         "Vallásismeret", "Vértviselet", "Pusztítás", "Jog/törvénykezés"),
-
-    "Boszorkány": \
-        ("Alkímia", "Állatismeret", "Ékesszólás", "Élettan", "Értékbecslés",
-         "Fegyverhasználat", "Lélektan", "Heraldika", "Herbalizmus",
-         "Írás/olvasás", "Kultúra", "Legendaismeret", "Méregkeverés/semlegesítés",
-         "Művészet", "Nyelvtudás", "Orvoslás", "Pszi", "Szakma",
-         "Számtan/mértan", "Szexuális kultúra", "Tapasztalati mágia",
-         "Történelem", "Udvari etikett", "Vallásismeret"),
-
-    "Egyéb boszorkánymester": \
-        ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
-         "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
-         "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
-         "Történelem"),
-
-    "Aszisz vérkelyhesek": \
-        ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
-         "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
-         "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
-         "Történelem", "Udvari etikett", "Politika/diplomácia"),
-
-    "Ascens Morga": \
-        ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
-         "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
-         "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
-         "Történelem", "Udvari etikett", "Politika/diplomácia", "Térképészet",
-         "Lélektan", "Hadvezetés", "Taktika", "Művészet", "Rúnamágia",
-         "Színészet"),
-
-    "Hergoli villámmesterek": \
-        ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
-         "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
-         "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
-         "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
-         "Történelem", "Hadvezetés", "Lélektan", "Térképészet", "Művészet",
-         "Hajózás", "Csomózás", "Értékbecslés", "Kultúra", "Szakma",
-         "Politika/diplomácia", "Udvari etikett"),
-
-    "Tűzvarázsló": \
-        ("Csomózás", "Fegyverhasználat", "Hadvezetés", "Hajózás", "Heraldika",
-         "Időjóslás", "Írás/olvasás", "Kultúra", "Lélektan", "Művészet",
-         "Nyelvtudás", "Ősi nyelv", "Őselemi mágia", "Politika/diplomácia",
-         "Pszi", "Rúnamágia", "Számtan/mértan", "Tapasztalati mágia", "Térképészet",
-         "Történelem", "Udvari etikett", "Úszás", "Vallásismeret"),
-
-    "Varázsló": \
-        ("Alkímia", "Démonológia", "Drágakőmágia", "Élettan", "Építészet",
-         "Heraldika", "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret",
-         "Lélektan", "Magas mágia", "Nekromancia", "Nyelvtudás", "Orvoslás",
-         "Őselemi mágia", "Ősi nyelv", "Politika/diplomácia", "Pszi", "Rúnamágia",
-         "Történelem", "Szakma", "Számtan/mértan", "Udvari etikett")
+    "Egyéb harcos": ("Akrobatika", "Állatismeret", "Esés", "Fájdalomtűrés",
+                     "Fegyverhasználat", "Futás", "Harctéri gyakorlat", "Hadvezetés",
+                     "Harci láz", "Lélektan", "Lovaglás", "Mászás", "Művészet",
+                     "Pajzshasználat", "Pusztakezes harc", "Számtan/mértan", "Taktika",
+                     "Térképészet", "Úszás", "Vértviselet"),
+    "Barbár": tuple(k[1:] if k[0] == "!" else k for k in
+                    list(kepzettsegek["harci"]) +
+                    list(kepzettsegek["világi"])),
+    "Erigowi számszeríjász": ("Akrobatika", "Esés", "Fájdalomtűrés",
+                              "Fegyverhasználat", "Futás", "Hadvezetés", "Harctéri gyakorlat",
+                              "Jelbeszéd", "Lélektan", "Mászás", "Mechanika", "Művészet",
+                              "Nyomolvasás", "Számtan/mértan", "Taktika", "Térképészet",
+                              "Úszás", "Vadonjárás"),
+    "Siedon": ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
+               "Fájdalomtűrés", "Fegyverhasználat", "Fegyverismeret", "Futás",
+               "Harctéri gyakorlat", "Heraldika", "Írás/olvasás",
+               "Kétkezes harc", "Kultúra", "Lopódzás", "Orvtámadás", "Párbaj",
+               "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet",
+               "Udvari etikett", "Vértviselet", "Zárnyitás"),
+    "Predoci vértes": ("Állatismeret", "Esés", "Fájdalomtűrés",
+                       "Fegyverhasználat", "Fegyverismeret", "Hadvezetés",
+                       "Harctéri gyakorlat", "Heraldika", "Idomítás",
+                       "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás",
+                       "Mászás", "Művészet", "Párbaj", "Számtan/mértan",
+                       "Taktika", "Térképészet", "Udvari etikett", "Úszás",
+                       "Vértviselet"),
+    "Egyéb lovag": ("Állatismeret", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                    "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                    "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás", "Művészet",
+                    "Nyelvtudás", "Pajzshasználat", "Párbaj", "Számtan/mértan", "Taktika",
+                    "Térképészet", "Történelem", "Udvari etikett", "Vértviselet"),
+    "Feketerend": ("Állatismeret", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                   "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                   "Írás/olvasás", "Kultúra", "Lélektan", "Lovaglás", "Művészet",
+                   "Nyelvtudás", "Ősi nyelv", "Pajzshasználat", "Párbaj", "Pszi", "Pusztítás",
+                   "Számtan/mértan", "Taktika", "Térképészet", "Történelem", "Udvari etikett",
+                   "Vértviselet"),
+    "Marico con Rabora lovagrend": ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                                    "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                                    "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
+                                    "Művészet", "Nyelvtudás", "Pajzshasználat", "Párbaj", "Pszi",
+                                    "Számtan/mértan", "Taktika", "Térképészet",
+                                    "Történelem", "Udvari etikett", "Vallásismeret", "Vértviselet"),
+    "Isten kardja lovagrend": ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                               "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                               "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
+                               "Művészet", "Nyelvtudás", "Ősi nyelv", "Pajzshasználat", "Párbaj",
+                               "Pszi",
+                               "Számtan/mértan", "Taktika", "Térképészet", "Történelem",
+                               "Udvari etikett",
+                               "Vallásismeret", "Vértviselet"),
+    "Erigowi Krad lovagrend": ("Állatismeret", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                               "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                               "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan", "Lovaglás",
+                               "Művészet", "Pajzshasználat", "Párbaj", "Pszi", "Számtan/mértan",
+                               "Taktika", "Térképészet", "Történelem", "Udvari etikett",
+                               "Vallásismeret", "Vértviselet"),
+    "Fejvadász (harcos)": ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
+                           "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                           "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
+                           "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
+                           "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi",
+                           "Pusztakezes harc", "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés",
+                           "Szabadulóművészet", "Számtan/mértan", "Színészet", "Taktika", "Vakharc",
+                           "Vértviselet", "Zárnyitás"),
+    "Fejvadász (orgyilkos)": ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
+                              "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                              "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
+                              "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
+                              "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi",
+                              "Pusztakezes harc", "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés",
+                              "Szabadulóművészet", "Számtan/mértan", "Színészet", "Taktika", "Vakharc",
+                              "Vértviselet", "Zárnyitás"),
+    "Fejvadász (felderítő)": ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
+                              "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                              "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
+                              "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lélektan", "Lopódzás",
+                              "Mászás", "Mechanika", "Művészet", "Nyomolvasás", "Orvtámadás", "Pszi",
+                              "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet", "Szakma",
+                              "Számtan/mértan", "Színészet", "Taktika", "Vakharc", "Zárnyitás"),
+    "Fejvadász (testőr)": ("Akrobatika", "Álcázás/álruha", "Csapdaállítás", "Csapdakeresés",
+                           "Csomózás", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverhasználat",
+                           "Fegyverismeret", "Harcművészet", "Harctéri gyakorlat", "Írás/olvasás",
+                           "Jelbeszéd", "Kétkezes harc", "Kínzás", "Kultúra", "Lopódzás", "Mászás",
+                           "Mechanika", "Nyomolvasás", "Orvtámadás", "Pszi", "Pusztakezes harc",
+                           "Pusztítás", "Rejtekhely kutatás", "Rejtőzködés", "Szabadulóművészet",
+                           "Számtan/mértan", "Színészet", "Taktika", "Vakharc", "Vértviselet",
+                           "Zárnyitás"),
+    "Tolvaj": ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
+               "Ékesszólás", "Élettan", "Építészet", "Értékbecslés", "Esés",
+               "Fegyverhasználat", "Hamisítás", "Helyismeret", "Heraldika", "Írás/olvasás",
+               "Jelbeszéd", "Kétkezes harc", "Kocsmai verekedés", "Kultúra",
+               "Legendaismeret", "Lélektan", "Lopódzás", "Mászás", "Mechanika",
+               "Művészet", "Nyomolvasás", "Orvtámadás", "Rejtekhely kutatás",
+               "Rejtőzködés", "Szabadulóművészet", "Számtan/mértan",
+               "Szerencsejáték", "Színészet", "Udvari etikett", "Zárnyitás",
+               "Zsebmetszés"),
+    "Egyéb bárd": ("Álcázás/álruha", "Ékesszólás", "Értékbecslés", "Fegyverhasználat",
+                   "Írás/olvasás", "Heraldika", "Kocsmai verekedés", "Kultúra",
+                   "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Nyelvtudás",
+                   "Párbaj", "Rejtekhely kutatás", "Rejtőzködés", "Szerencsejáték",
+                   "Szexuális kultúra", "Színészet", "Tapasztalati mágia", "Történelem",
+                   "Udvari etikett", "Zárnyitás"),
+    "Aszisz énekmondó": ("Akrobatika", "Álcázás/álruha", "Csapdakeresés", "Csomózás",
+                         "Értékbecslés", "Fegyverhasználat", "Hamisítás", "Írás/olvasás",
+                         "Heraldika", "Kocsihajtás", "Kocsmai verekedés", "Kultúra",
+                         "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Rejtekhely kutatás",
+                         "Rejtőzködés", "Szabadulóművészet", "Szerencsejáték", "Szexuális kultúra",
+                         "Színészet", "Tapasztalati mágia", "Történelem",
+                         "Zárnyitás", "Színészet"),
+    "Lombhullás árvái": ("Akrobatika", "Értékbecslés", "Fegyverhasználat", "Heraldika",
+                         "Legendaismeret", "Lélektan", "Lopódzás", "Művészet", "Nyelvtudás",
+                         "Rejtekhely kutatás", "Rejtőzködés", "Szerencsejáték", "Szexuális kultúra",
+                         "Színészet", "Tapasztalati mágia", "Történelem"),
+    "Vándorló dalnok": ("Akrobatika", "Állatismeret", "Csomózás", "Értékbecslés", "Esés",
+                        "Fegyverhasználat", "Hangutánzás", "Harctéri gyakorlat", "Herbalizmus",
+                        "Idomítás", "Kocsmai verekedés", "Kultúra", "Legendaismeret", "Lélektan",
+                        "Lopódzás", "Lovaglás", "Mászás", "Művészet", "Párbaj", "Rejtőzködés",
+                        "Szexuális kultúra", "Tapasztalati mágia", "Vadonjárás"),
+    "Sötét bárd": ("Fegyverhasználat", "Vallásismeret", "Kínzás", "Lélektan", "Művészet",
+                   "Színészet", "Álcázás/álruha", "Orvtámadás", "Lopódzás", "Rejtőzködés",
+                   "Kétkezes harc", "Kultúra", "Élettan", "Írás/olvasás", "Legendaismeret",
+                   "Történelem", "Udvari etikett", "Tapasztalati mágia"),
+    "Harcművész": ("Akrobatika", "Élettan", "Esés", "Fájdalomtűrés", "Fegyverismeret",
+                   "Futás", "Harcművészet", "Harctéri gyakorlat", "Herbalizmus", "Írás/olvasás",
+                   "Kétkezes harc", "Kultúra", "Művészet", "Nyelvtudás", "Orvoslás", "Párbaj",
+                   "Pszi", "Udvari etikett", "Vakharc", "Vértviselet"), "Kardművész": "Harcművész",
+    "Egyéb pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                  "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                  "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                  "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                  "Vallásismeret"),
+    "Domvik-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                   "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                   "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                   "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                   "Vallásismeret", "Hadvezetés", "Oktatás", "Ősi nyelv"),
+    "Ranagol-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                    "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                    "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                    "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                    "Vallásismeret", "Alkímia", "Kínzás", "Művészet", "Ősi nyelv"),
+    "Arel-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                 "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                 "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                 "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                 "Vallásismeret", "Állatismeret", "Hadvezetés", "Harci láz",
+                 "Harctéri gyakorlat", "Fájdalomtűrés", "Fegyverismeret", "Idomítás",
+                 "Kocsmai verekedés", "Lovaglás", "Nyomolvasás", "Szakma", "Szerencsejáték",
+                 "Vadonjárás"),
+    "Kyel-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                 "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                 "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                 "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                 "Vallásismeret", "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat",
+                 "Pajzshasználat", "Pusztítás", "Vértviselet"),
+    "Sogron-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                   "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                   "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                   "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                   "Vallásismeret", "Hadvezetés", "Tapasztalati mágia", "Vértviselet"),
+    "Tharr-pap": ("Ékesszólás", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                  "Írás/olvasás", "Jog/törvénykezés", "Kultúra", "Legendaismeret", "Lélektan",
+                  "Művészet", "Nyelvtudás", "Orvoslás", "Ősi nyelv", "Politika/diplomácia",
+                  "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                  "Vallásismeret", "Alkímia", "Kínzás", "Méregkeverés/semlegesítés",
+                  "Orvtámadás"),
+    "Egyéb paplovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                       "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                       "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                       "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                       "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                       "Vallásismeret", "Vértviselet"),
+    "Darton-paplovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                        "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                        "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                        "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                        "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                        "Vallásismeret", "Vértviselet", "Kocsmai verekedés", "Élettan",
+                        "Pusztítás", "Pusztakezes harc", "Szerencsejáték"),
+    "Domvik-paplovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                        "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                        "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                        "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                        "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                        "Vallásismeret", "Vértviselet", "Élettan", "Jog/törvénykezés",
+                        "Politika/diplomácia", "Ősi nyelv"),
+    "Dreina-paplovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                        "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                        "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                        "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                        "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                        "Vallásismeret", "Vértviselet", "Értékbecslés", "Jog/törvénykezés",
+                        "Politika/diplomácia", "Szakma"),
+    "Aranykör lovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                       "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                       "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                       "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                       "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                       "Vallásismeret", "Vértviselet", "Jog/törvénykezés", "Térképészet"),
+    "Ranagol-paplovag": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                         "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                         "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                         "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                         "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                         "Vallásismeret", "Vértviselet", "Méregkeverés/semlegesítés",
+                         "Alkímia", "Orvtámadás", "Kínzás"),
+    "Főnix": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+              "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+              "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+              "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+              "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+              "Vallásismeret", "Vértviselet", "Hajózás", "Térképészet",
+              "Tapasztalati mágia", "Csomózás", "Ősi nyelv", "Taktika"),
+    "Bosszúangyal": ("Állatismeret", "Ékesszólás", "Fájdalomtűrés", "Fegyverhasználat",
+                     "Fegyverismeret", "Hadvezetés", "Harctéri gyakorlat", "Heraldika",
+                     "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret", "Lélektan",
+                     "Lovaglás", "Művészet", "Nyelvtudás", "Orvoslás", "Pajzshasználat",
+                     "Pszi", "Számtan/mértan", "Térképészet", "Történelem", "Udvari etikett",
+                     "Vallásismeret", "Vértviselet", "Pusztítás", "Jog/törvénykezés"),
+    "Boszorkány": ("Alkímia", "Állatismeret", "Ékesszólás", "Élettan", "Értékbecslés",
+                   "Fegyverhasználat", "Lélektan", "Heraldika", "Herbalizmus",
+                   "Írás/olvasás", "Kultúra", "Legendaismeret", "Méregkeverés/semlegesítés",
+                   "Művészet", "Nyelvtudás", "Orvoslás", "Pszi", "Szakma",
+                   "Számtan/mértan", "Szexuális kultúra", "Tapasztalati mágia",
+                   "Történelem", "Udvari etikett", "Vallásismeret"),
+    "Egyéb boszorkánymester": ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                               "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
+                               "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
+                               "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
+                               "Történelem"),
+    "Aszisz vérkelyhesek": ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                            "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
+                            "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
+                            "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
+                            "Történelem", "Udvari etikett", "Politika/diplomácia"),
+    "Ascens Morga": ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                     "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
+                     "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
+                     "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
+                     "Történelem", "Udvari etikett", "Politika/diplomácia", "Térképészet",
+                     "Lélektan", "Hadvezetés", "Taktika", "Művészet", "Rúnamágia",
+                     "Színészet"),
+    "Hergoli villámmesterek": ("Alkímia", "Élettan", "Fegyverhasználat", "Heraldika", "Herbalizmus",
+                               "Időjóslás", "Írás/olvasás", "Kultúra", "Legendaismeret",
+                               "Méregkeverés/semlegesítés", "Nekromancia", "Nyelvtudás", "Orvoslás",
+                               "Orvtámadás", "Pszi", "Szakma", "Számtan/mértan", "Tapasztalati mágia",
+                               "Történelem", "Hadvezetés", "Lélektan", "Térképészet", "Művészet",
+                               "Hajózás", "Csomózás", "Értékbecslés", "Kultúra", "Szakma",
+                               "Politika/diplomácia", "Udvari etikett"),
+    "Tűzvarázsló": ("Csomózás", "Fegyverhasználat", "Hadvezetés", "Hajózás", "Heraldika",
+                    "Időjóslás", "Írás/olvasás", "Kultúra", "Lélektan", "Művészet",
+                    "Nyelvtudás", "Ősi nyelv", "Őselemi mágia", "Politika/diplomácia",
+                    "Pszi", "Rúnamágia", "Számtan/mértan", "Tapasztalati mágia", "Térképészet",
+                    "Történelem", "Udvari etikett", "Úszás", "Vallásismeret"),
+    "Varázsló": ("Alkímia", "Démonológia", "Drágakőmágia", "Élettan", "Építészet",
+                 "Heraldika", "Herbalizmus", "Írás/olvasás", "Kultúra", "Legendaismeret",
+                 "Lélektan", "Magas mágia", "Nekromancia", "Nyelvtudás", "Orvoslás",
+                 "Őselemi mágia", "Ősi nyelv", "Politika/diplomácia", "Pszi", "Rúnamágia",
+                 "Történelem", "Szakma", "Számtan/mértan", "Udvari etikett")
 }
-
 oktatas_bonuszok["Amazon"] = oktatas_bonuszok["Egyéb harcos"]
-
-oktatas_bonuszok["Barbár"] = []
-for kepz in list(kepzettsegek["Harci"].keys()) + \
-        list(kepzettsegek["Világi"].keys()):
-    if kepz[0] == "!":
-        kepz = kepz[1:]
-    oktatas_bonuszok["Barbár"].append(kepz)
-
 oktatas_bonuszok["Kardművész"] = oktatas_bonuszok["Harcművész"]
 
 faji_kepzettseg_elonyok = \
@@ -1837,11 +1669,6 @@ faji_kepzettseg_elonyok = \
         "Félelf": ("Állatismeret", "Idomítás", "Vadonjárás", "Lovaglás", 3),
         "Udvari ork": ("Építészet", 0),
         "Törpe": ("Építészet", "Térképészet", "Mechanika", "Művészet", "Szakma", 4),
-        "Kyr származék": [],
+        "Kyr származék": tuple(k[1:] if k[0] == "!" else k for k in kepzettsegek["Szociális"].keys()),
         "Ember": ("Építészet", 0)
     }
-
-for kepz in kepzettsegek["Szociális"].keys():
-    if kepz[0] == "!": kepz = kepz[1:]
-    faji_kepzettseg_elonyok["Kyr származék"].append(kepz)
-faji_kepzettseg_elonyok["Kyr származék"].append(4)

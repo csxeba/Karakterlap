@@ -1,14 +1,16 @@
 # -*- coding: Utf-8 -*-
-import tkinter.messagebox as tkmb
 from tkinter import *
+import tkinter.messagebox as tkmb
 
-import data.globz as globz
-import data.resource as RES
+from . import globz, resource
+from .frame_foTul import FoTulBeallitas
 
-
-class Frame_foTul_kijelzo(Frame):
+class FrameFoTulKijelzo(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
+
+        self.frame = None
+        self.tl = None
         self.configure(relief=RAISED, borderwidth=20)
 
         bw = 2.5
@@ -21,7 +23,7 @@ class Frame_foTul_kijelzo(Frame):
             n += 1
         self.spinboxok = {}
         n = 1
-        for c in RES.fo_tulajdonsag_nevek:
+        for c in resource.fo_tulajdonsag_nevek:
             Label(frame_top, text=c,
                   bd=bw, width=6, relief=RAISED,
                   font="Courier").grid(row=n, column=0)
@@ -48,11 +50,10 @@ class Frame_foTul_kijelzo(Frame):
                ).grid(row=n, column=2, columnspan=4)
 
     def edit(self):
-        import data.frame_foTul as ftm
         self.tl = Toplevel(self)
         self.tl.title("Fő tulajdonságok beállítása")
 
-        self.frame = ftm.FoTul_beallitas(self.tl)
+        self.frame = FoTulBeallitas(self.tl)
         self.frame.pack()
         Button(self.tl, text="Kész", font=("Courier", 16),
                command=self.kesz).pack(fill=X)
@@ -69,10 +70,10 @@ class Frame_foTul_kijelzo(Frame):
 
 
 if __name__ == '__main__':
-    import karakter
+    from Karakterlap.data import karakter
 
     root = Tk()
     globz.rootwin = root
     globz.kar = karakter.Karakter(root)
-    frame = Frame_foTul_kijelzo(root)
+    frame = FrameFoTulKijelzo(root)
     frame.pack()
