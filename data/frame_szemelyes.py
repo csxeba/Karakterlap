@@ -65,7 +65,7 @@ class FrameAdatok(Frame):
         self.hatterek_gomb = Button(f, width=43, text="Hátterek kiválasztása", command=self.hatterek_popup)
         self.hatterek_gomb.grid(row=n, column=1)
 
-        if not self.master.check():
+        if not self.check():
             self.hatterek_gomb.configure(state=DISABLED)
 
         frame = Frame(self, width=300, borderwidth=bw, relief=RAISED)
@@ -93,7 +93,7 @@ class FrameAdatok(Frame):
             elif melyik in ('Iskola', 'Kaszt altípus'):
                 if kaszt == ' ':
                     tkmb.showerror("Hiba!", "Előbb kasztot kell választanod!")
-                    return 1
+                    return "fail"
                 if (melyik == 'Kaszt altípus') and (not resource.kaszt_altipusok[kaszt]):
                     tkmb.showwarning("Figyelem!", "Ennek a kasztnak nincsenek altípusai!")
                     return 1
@@ -104,7 +104,7 @@ class FrameAdatok(Frame):
             elif melyik == "Isten":
                 if adatok["Vallás"].get() in ("", " "):
                     tkmb.showerror("Hiba!", "Előbb vallást kell választanod!")
-                    return 1
+                    return "fail"
 
             elif melyik == 'Szülőföld':
                 adatok['Ország'].set(' ')
@@ -112,15 +112,14 @@ class FrameAdatok(Frame):
             elif melyik == "Ország":
                 if adatok["Szülőföld"].get() in ("", " "):
                     tkmb.showerror("Hiba!", "Előbb szülőföldet kell választanod!")
-                    return 1
+                    return "fail"
 
         # Kinyerjük a beállítandó tulajdonság nevét tartalmazó stringet
         melyik = {val: key for key, val in self.szemelyes_labelek.items()
                   }[event.widget]
         globz.kar.szemelyes_adatok[melyik].set(" ")
 
-        errcode = sanity_check()
-        if errcode is 1:
+        if sanity_check() == "fail":
             return
 
         self.tl = self.AdatToplevel(self, melyik)
@@ -177,11 +176,15 @@ class FrameAdatok(Frame):
 
         update.szemelyes_forrasok(globz.kar)
 
-        if not self.master.check():
+        if not self.check():
             return
 
         globz.kar.update()
         self.hatterek_gomb.configure(state=ACTIVE)
+
+    def check(self):
+        # A nevet be kell huzalozni ide!
+        return " " not in [var.get() for var in globz.kar.szemelyes_adatok.values()]
 
     def randomize(self):
         import random
@@ -266,7 +269,7 @@ class FrameAdatok(Frame):
             f.pack()
 
             self.hatter_spinboxok = {}  # kulcs a háttér neve (string), érték az azt beállító spinbox.
-            for n, c in enumerate(hasznos.get_sorted_list(res)):
+            for n, c in enumerate(hasznos.slist(res)):
                 Label(f, bd=3, relief=RIDGE, anchor=W,
                       width=17, text=c
                       ).grid(row=n, column=0, padx=2)

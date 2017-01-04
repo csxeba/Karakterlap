@@ -1,4 +1,5 @@
 # -*- coding: Utf-8 -*-
+import warnings
 from tkinter import *
 
 from . import globz, hasznos, resource, update
@@ -11,8 +12,11 @@ class FrameHarcertekek(FrameBase):
         self.aktiv = None
 
         HarcertekFrame(self).pack(side=LEFT)
-
         VertPajzsFrame(self).pack(side=LEFT)
+
+    def check(self):
+        warnings.warn("Unimplemented check() invoked in FrameHarcertekek")
+        return 1
 
     @staticmethod
     def harcertek_noveles(arg):

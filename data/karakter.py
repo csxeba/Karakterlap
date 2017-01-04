@@ -22,7 +22,7 @@ class Karakter(Frame):
             self.szemelyes_adatok[c] = StringVar(value=' ')
 
         self.hatterek = {}
-        for c in hasznos.get_sorted_list(resource.hatterek_resource):
+        for c in hasznos.slist(resource.hatterek_resource):
             self.hatterek[c] = StringVar(value='0')
 
         self.faji_bonuszok = None

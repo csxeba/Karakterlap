@@ -405,6 +405,7 @@ fegyverek = {
 
 kepzettsegek = {
     # Képzettség neve, nehézsége, képzettségkövetelményei(erős, gyenge), tulajdonságkövetelményei
+    # A ! (felkiáltójel) azt jelzi, hogy a képzettség egy specializáció.
     'Harci': {
         'Fájdalomtűrés': (2, (), ('ÁLL', 'AKE')),
         '!Fegyverhasználat': (3, (), ('ERŐ', 'GYO', 'ÜGY', 'ÉRZ')),
@@ -1405,8 +1406,8 @@ oktatas_bonuszok = {
                      "Pajzshasználat", "Pusztakezes harc", "Számtan/mértan", "Taktika",
                      "Térképészet", "Úszás", "Vértviselet"),
     "Barbár": tuple(k[1:] if k[0] == "!" else k for k in
-                    list(kepzettsegek["harci"]) +
-                    list(kepzettsegek["világi"])),
+                    list(kepzettsegek["Harci"]) +
+                    list(kepzettsegek["Világi"])),
     "Erigowi számszeríjász": ("Akrobatika", "Esés", "Fájdalomtűrés",
                               "Fegyverhasználat", "Futás", "Hadvezetés", "Harctéri gyakorlat",
                               "Jelbeszéd", "Lélektan", "Mászás", "Mechanika", "Művészet",
@@ -1667,8 +1668,8 @@ faji_kepzettseg_elonyok = \
     {
         "Elf": ("Állatismeret", "Idomítás", "Vadonjárás", "Lovaglás", 4),
         "Félelf": ("Állatismeret", "Idomítás", "Vadonjárás", "Lovaglás", 3),
-        "Udvari ork": ("Építészet", 0),
+        "Udvari ork": ("Építészet", 0),  # nincs!
         "Törpe": ("Építészet", "Térképészet", "Mechanika", "Művészet", "Szakma", 4),
-        "Kyr származék": tuple(k[1:] if k[0] == "!" else k for k in kepzettsegek["Szociális"].keys()),
-        "Ember": ("Építészet", 0)
+        "Kyr származék": tuple(k[1:] if k[0] == "!" else k for k in kepzettsegek["Szociális"].keys()) + (3,),
+        "Ember": ("Építészet", 0)  # nincs!
     }

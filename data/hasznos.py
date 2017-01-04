@@ -4,11 +4,11 @@ from tkinter import *
 
 
 def mod_IntVar(var, x):
-    "Módosítja a megadott Tkinter IntVar objektum értékét a megadott x-szel"
+    """Módosítja a megadott Tkinter IntVar objektum értékét a megadott x-szel"""
     var.set(var.get() + x)
 
 
-def get_sorted_list(dic, values=False):
+def slist(dic, values=False):
     if not values:
         li = list(dic.keys())
         li.sort()
@@ -34,5 +34,5 @@ def set_state(widget, st):
 
 
 def calc_szint(tp):
-    '''A megadott tp-bõl kiszámolja a karakter szintjét'''
+    """A megadott tp-bõl kiszámolja a karakter szintjét"""
     return len([100 * 2 ** i for i in range(0, 21) if 100 * 2 ** i <= tp]) + 1

@@ -1,22 +1,23 @@
 from tkinter import *
 
-import data.frame_szemelyes
-import data.globz as globz
-import data.karakter as kar
+from Karakterlap.data import globz
+from Karakterlap.data.karakter import Karakter
+from Karakterlap.data.frame_szemelyes import FrameSzemelyes
+from Karakterlap.data.frame_kepzettsegek import FrameKepzettsegek
 
 tk = Tk()
-globz.kar = kar.Karakter(tk)
+globz.kar = Karakter(tk)
 print("kar created")
 globz.kar.hail_mary()
 print("hail mary done")
 globz.kar.update()
 print("update done")
 
-tk.frame = data.frame_kepzettsegek.Frame_kepzettsegek(tk)
-# tk.frame = data.frame_szemelyes.Frame_szemelyes(tk)
+frame = FrameKepzettsegek(tk)
+# frame = FrameSzemelyes(tk)
 
 
-tk.frame.pack()
+frame.pack()
 
 ##counter = 0
 ##kihagyva = 0

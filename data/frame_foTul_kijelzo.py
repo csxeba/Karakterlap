@@ -70,7 +70,7 @@ class FrameFoTulKijelzo(Frame):
 
 
 if __name__ == '__main__':
-    from Karakterlap.data import karakter
+    from Kijelzo.data import karakter
 
     root = Tk()
     globz.rootwin = root

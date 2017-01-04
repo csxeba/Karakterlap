@@ -1,10 +1,10 @@
 # -*- coding: Utf-8 -*-
-from data.frame_foTul_kijelzo import *
-from data.frame_harcertekek import *
-from data.frame_kepzettsegek import *
-from data.frame_pszi_magia import *
-from data.frame_szemelyes import *
-from data.objektumok import *
+from Karakterlap.data.frame_foTul_kijelzo import *
+from Karakterlap.data.frame_harcertekek import *
+from Karakterlap.data.frame_kepzettsegek import *
+from Karakterlap.data.frame_pszi_magia import *
+from Karakterlap.data.frame_szemelyes import *
+from Karakterlap.data.objektumok import *
 
 
 class KarakterlapAblak(Tk):
@@ -12,6 +12,10 @@ class KarakterlapAblak(Tk):
 
     def __init__(self):
         Tk.__init__(self)
+
+        self.tl = None
+        self.tl_aktiv = None
+        self.bot_frame = None
 
         globz.kar = karakter.Karakter(self)
 
@@ -64,10 +68,14 @@ class KarakterlapAblak(Tk):
         self.tl_aktiv = None
 
 
-globz.modeflag = "karakterlap"
-globz.rootwin = KarakterlapAblak()
-for c in hasznos.get_sorted_list(RES.fegyverek):
-    globz.fegyverek[c] = Fegyver(globz.kar)
+if __name__ == '__main__':
+    globz.modeflag = "karakterlap"
+    globz.rootwin = KarakterlapAblak()
+    for tipus in hasznos.slist(resource.fegyverek):
+        for fnev in hasznos.slist(resource.fegyverek[tipus]):
+            globz.fegyverek[fnev] = Fegyver(globz.kar, tipus, fnev)
+    root = KarakterlapAblak()
+    root.mainloop()
 
 """
 TODO:

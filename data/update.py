@@ -7,7 +7,7 @@ def szintlepes(kar, volt, lett):
 
 
 def kornyezet_inicializalasa(kar):
-    for tipus in hasznos.get_sorted_list(resource.fegyverek):
+    for tipus in hasznos.slist(resource.fegyverek):
         for fegyver in resource.fegyverek[tipus]:
             globz.fegyverek[fegyver] = objektumok.Fegyver(kar, tipus, fegyver)
 

@@ -103,11 +103,11 @@ class Kepzettseg(Frame):
             return ""
 
         if self.kovetelmeny_k:  # ha van képzettség-követelmény
-            if self.kovetelmeny_k[0]:  # ha van erős képzettség-követelmény
-                if (not self.master.kepzettsegek[self.kovetelmeny_k[0]]) or \
-                                self.master.kepzettsegek[
-                                    self.kovetelmeny_k[0]].fok.get() <= fok_akt:  # kisebb a szintje az erős köv-nél.
-                    return "Nem felvehető"
+            eros = self.kovetelmeny_k[0]
+            if eros:  # ha van erős képzettség-követelmény
+                if (not self.master.kepzettsegek[eros]) or\
+                        self.master.kepzettsegek[eros].fok.get() <= fok_akt:
+                    return "Nem felvehető"  # kisebb a szintje az erős köv-nél.
 
             if (self.kovetelmeny_k[1]) and \
                     (self.master.kepzettsegek[self.kovetelmeny_k[1]].fok.get() < fok_akt):
